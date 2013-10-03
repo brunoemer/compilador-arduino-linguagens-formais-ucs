@@ -1,0 +1,186 @@
+﻿Alg ->
+	Algoritmo -NomeAlgoritmo-
+	-Declaracoes-
+	Inicio
+	-ListaDeComandos-
+{
+	Alg.Cod = Bibliotecas.cod + declaracoes.cod;
+	Alg.cod += "void "+NomeAlgoritmo.cod + "(){" + ListaDeComandos + "}";
+	Alg.cod += "int main(){ " + NomeAlgoritmo.cod + "() };"
+}
+
+Bibliotecas ->
+	string							{ Bibliotecas.cod = "#include <stdio.h>" + "\n" + "#include <stdio.h>" }
+
+NomeAlgoritmo ->
+    string |						{ NomeAlgoritmo.cod = string }
+	Ɛ								{ NomeAlgoritmo.cod = "xmain" }
+
+Declaracoes ->
+	Var -ListaDeclaracoes-            { Declaracoes.cod = ListaDeclaracoes.cod }  
+
+ListaDeclaracoes ->
+	-DeclaraVar-			 |	   { ListaDeclaracoes.cod = DeclaraVar.cod + "\n" } 
+	-Procedimento-           |     { ListaDeclaracoes.cod = Procedimento.cod + "\n"}
+	-Funcao-                 |     { ListaDeclaracoes.cod = Funcao.cod + "\n"}
+	Ɛ							   { ListaDeclaracoes.cod = "" }
+
+DeclaraVar ->
+	identificador ListaVar : TipoVar ListaDeclaracoes	{ DeclaraVar.cod = TipoVar.cod + identificador.cod + ListaVar.cod + ";\n" + ListaDeclaracoes.cod  }
+
+ListaVar ->
+	, identificador ListaVar |			{ ListaVar.cod = "," + identificador.cod + ListaVar.cod }
+	Ɛ									{ ListaVar.cod = "" }
+
+TipoVar ->
+	inteiro |		{ TipoVar.cod = "int" }
+	real |			{ TipoVar.cod =  "float" }
+	logico			{ TipoVar.cod =  "bool" }
+
+ListaDeComandos ->
+	id TipoComando ListaDeComandos |
+	Ɛ
+
+TipoComando ->
+	Atribuicao |
+	Escreva |
+	Leia |
+	Se |
+	Para |
+	Enquanto |
+	Repita |
+	Retorne
+
+Retorne -> Exp {Retorne.cod = "return " + Exp.cod}
+
+Atribuicao ->
+	<- Exp
+
+Exp -> T { R.h = T.val } R { Exp.val = R.s }
+R -> ou T { R1.h = R.h + "||" + T.val } R1 { R.s = R1.s }
+R -> Ɛ { R.s = R.h }
+
+T -> F { U.h = F.val } U { T.val = U.s }
+U -> e F { U1.h = U.h + "&&" + F.val } U1 { U.s = U1.s }
+U -> Ɛ { U.s = U.h }
+
+F -> G {F.val = G.val)
+
+G -> nao G1 { G.val = "!" + G1.val}
+G -> H { V.h = H.val } V { G.val = V.s }
+V -> > H { V1.h = V.h + ">" + H.val } V1 { V.s = V1.s }
+V -> = H { V1.h = V.h + "=" + H.val } V1 { V.s = V1.s }
+V -> < H { V1.h = V.h + "<" + H.val } V1 { V.s = V1.s }
+V -> >= H { V1.h = V.h + ">=" + H.val } V1 { V.s = V1.s }
+V -> <> H { V1.h = V.h + "!=" + H.val } V1 { V.s = V1.s }
+V -> <= H { V1.h = V.h + "<=" + H.val } V1 { V.s = V1.s }
+V -> Ɛ { V.s = V.h }
+
+H -> J { X.h = J.val } X { H.val = X.s }
+X -> + J { X1.h = X.h + "+" + J.val } X1 { X.s = X1.s }
+X -> - J { X1.h = X.h + "+" + J.val } X1 { X.s = X1.s }
+X -> Ɛ { J.s = J.h }
+
+J -> K { Y.h = K.val } Y { J.val = Y.s }
+Y -> * K { Y1.h = Y.h + "*" + K.val } Y1 { Y.s = Y1.s }
+Y -> / K { Y1.h = Y.h + "/" + K.val } Y1 { Y.s = Y1.s }
+Y -> mod K { Y1.h = Y.h + "%" + K.val } Y1 { Y.s = Y1.s }
+Y -> % K { Y1.h = Y.h + "%" + K.val } Y1 { Y.s = Y1.s }
+Y -> div K { Y1.h = Y.h + "/" + K.val } Y1 { Y.s = Y1.s }
+Y -> \ K { Y1.h = Y.h + "/" + K.val } Y1 { Y.s = Y1.s }
+Y -> Ɛ { Y.s = Y.h }
+
+K ->
+	inteiro | {K.val = inteiro.cod}
+	real | {K.val = real.cod}
+	logico | {K.val = logico.cod}
+	id | {K.val = id.cod}
+	(E) {K.val = "(" + E.val + ")" }
+
+
+Escreva ->
+	(ParEsc ListaParEsc)
+	{
+		.cod = "printf(" + ParEsc.str + ListaParEsc.str + ", " + ParEsc.par + ListaParEsc.par + ");"
+	}
+
+Leia ->
+	(id) { .cod = scanf(id.tipoS, id);
+
+ParEsc ->
+	Exp {
+		ParEsc.str = Exp.Cod
+		ParEsc.par = FF(Exp.Tipo)
+	}
+
+ListaParEsc ->
+	, ParEsc ListaParEsc {
+		ListaParEsc.str = ParEsc.str + ListaParEsc.str
+		ListaParEsc.par = ", " + ParEsc.par + ListaParEsc.par
+	} |
+	Ɛ
+
+//Comando Se
+Se -> se -Exp- entao -ListaDeComandos- -SeFim-      {    Se.cod = "if (" + Exp.cod + ") {" + ListaDeComandos.cod    }
+SeFim -> senao -ListaDeComandos- fimse |            {    SeFim.cod = "} else { " + ListaDeComandos.cod              }
+SeFim -> fimse                                      {    SeFim.cod = "}"                                            }
+
+//Comando repita
+Repita -> repita -ListaDeComandos- ate -Exp-      {    Repita.cod = "do {" + ListaDeComandos.cod + "} while (" + Exp.cod +");"    }
+
+//Comando enquanto
+Enquanto -> enquanto -Exp- faca -ListaDeComandos- fimenquanto   {    Enquanto.cod = "while (" + Exp.cod + ") { " -ListaDeComandos- "}"    }
+
+//Comando para
+Para -> para identificador de -Exp- ate -Exp- faca -ListaDeComandos- fimpara
+{   Para.cod = "for(" + identificador + "=" + Exp.cod + "; " + identificador + "<=" + Exp.cod + ";" + identificador + "++) {" + ListaDeComandos.cod + "}"  }
+
+//Procedimentos:
+
+Procedimento -> procedimento -NomeDoProcedimento- ( -ListaParametrosProcFunc- ) -ProcedimentoVariaveis-  
+{Procedimento.cod = "void " + NomeDoProcedimento.Cod + "("+ ListaParametrosProcFunc.cod + ")" + "\n" + ProcedimentoVariaveis.cod  }
+
+ProcedimentoVariaveis -> var -ListaDeclaracoesProcFunc- inicio -CmdProc- |  
+{ ProcedimentoVariaveis.Cod = "{" + "\n" + ListaDeclaracoesProcFunc.Cod + "\n" + CmdProc.Cod  }
+
+ProcedimentoVariaveis -> inicio -CmdProc-
+{ ProcedimentoVariaveis.Cod = "{" + "\n" + CmdProc.Cod }
+
+CmdProc -> -ListaDeComandos- fimprocedimento -ListaDeclaracoes- 
+{ CmdProc.Cod = ListaDeComandos.cod + "}\n" + ListaDeclaracoes.cod }
+
+NomeDoProcedimento -> string	{	NomeDoProcedimento.cod = string	}
+
+ListaParametrosProcFunc ->
+	identificador -ParametrosProcFunc-		 |  {	ListaParametrosProcFunc.cod = ParametrosProcFunc("", identificador).cod	}
+	var identificador  -ParametrosProcFunc-  |  {	ListaParametrosProcFunc.cod = ParametrosProcFunc("*", identificador).cod	}
+	Ɛ											{	ListaParametrosProcFunc.cod = ""	}
+
+ParametrosProcFunc = -ListaVar- : -TipoVar- -ListaParametrosProcFunc-
+	{
+		outrosIdentificadores = ""
+		for(identificador na -ListaVar-)
+			outrosIdentificadores += ", " + TipoVar.cod + " " + reference + identificador.cod
+
+		ParametrosProcFunc.cod = TipoVar.cod + " " + reference + identificador.cod + outrosIdentificadores + ListaParametrosProcFunc.cod  
+	}
+
+ListaDeclaracoesProcFunc -> identificador ListaVar : TipoVar ListaDeclaracoesProcFunc |					
+{ ListaDeclaracoesProcFunc.cod = TipoVar.cod + identificador.cod + ListaVar.cod + ";\n" + ListaDeclaracoesProcFunc.cod  }
+							Ɛ    {	ListaDeclaracoesProcFunc.cod = ""	}
+
+//Funcoes
+
+Funcao -> funcao -NomeDaFuncao- ( -ListaParametrosProcFunc- ) : -TipoVar- -FuncaoVariaveis-  
+{Funcao.cod = "void " + NomeDaFuncao.Cod + "("+ ListaParametrosProcFunc.cod + ")" + "\n" + FuncaoVariaveis.cod  }
+
+FuncaoVariaveis -> var -ListaDeclaracoesProcFunc- inicio -CmdProc- |  
+{ FuncaoVariaveis.Cod = "{" + "\n" + ListaDeclaracoesProcFunc.Cod + "\n" + CmdProc.Cod  }
+
+FuncaoVariaveis -> inicio -CmdProc-
+{ FuncaoVariaveis.Cod = "{" + "\n" + CmdProc.Cod }
+
+CmdProc -> -ListaDeComandos- fimfuncao -ListaDeclaracoes- 
+{ CmdProc.Cod = ListaDeComandos.cod + "}\n" + ListaDeclaracoes.cod }
+
+NomeDaFuncao -> string	{	NomeDaFuncao.cod = string	}

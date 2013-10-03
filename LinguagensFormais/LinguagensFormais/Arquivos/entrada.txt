@@ -1,0 +1,208 @@
+﻿  
+  
+  
+  
+  algoritmo "abcdefgh"
+  var ax2, abs3s : real
+	a, b, c, d, kk, t1: inteiro
+	x, y, z: logico
+	a1:inteiro
+	testecoerente2 : inteiro
+
+	procedimento testechamadavazio()
+	inicio
+	testechamadavazio()
+	fimprocedimento
+
+	procedimento testecall(par1, par2, par3, par4:inteiro var parvar1:real)
+	inicio
+	a <- 2
+	kk <- 66
+
+	ax2 <- 1.0
+	fimprocedimento
+
+	funcao testexxx(t1, t2:inteiro):inteiro
+	var b:logico
+	inicio
+	a <- 5
+	fimfuncao
+
+	funcao funciona(var vaimatrix:real) : inteiro
+	inicio
+	retorne 5
+	fimfuncao
+
+	procedimento mvar()
+	inicio
+	se(testexxx(1, 1) > 3)
+	entao
+	fimse
+	a <- testexxx(1, 1)
+	fimprocedimento
+
+	funcao testecoerente(testecoerenteparametro:inteiro) : inteiro
+	inicio
+	escreva("teste")
+	fimfuncao
+
+	procedimento testecoerentea2()
+	var testecoerente2:inteiro
+	inicio
+	se (verdadeiro) entao
+		repita
+		ate falso
+	fimse
+	fimprocedimento
+
+	procedimento intrometido()
+	var a:inteiro
+	inicio
+	fimprocedimento
+	teste:logico
+	ai, bi, ci, di :logico
+	procedimento testelala()
+	var alelek:inteiro
+	vaipastar:real
+	inicio
+		escreva("teste!!")
+	fimprocedimento
+	procedimento testeproc(t1, t2 : inteiro t3: logico)
+	var
+	kk:inteiro
+	inicio
+		teste <- falso
+		kk <- t2
+	fimprocedimento
+
+	procedimento teste2(var t1: inteiro t2:inteiro var t3, t4: inteiro)
+	inicio
+	fimprocedimento
+
+	procedimento teste3(var t1: inteiro t50:real t2,y5,h6:inteiro var t3, t4: inteiro)
+	var
+	a : logico
+	inicio
+	a <- verdadeiro
+	fimprocedimento
+inicio
+
+t1 <- 3
+testecall(1+1, 1+a, kk, 5+a+1, ax2)
+
+	leia(c)
+	para b de 1+1 ate c+3 faca
+		leia(z)
+		enquanto z faca
+			enquanto falso faca
+				leia(x)
+				leia(y)
+				se z entao
+					se x entao
+						se y entao
+						senao
+						fimse
+					fimse
+				senao
+					leia(x)
+				fimse
+			fimenquanto
+		fimenquanto
+	fimpara
+
+	leia(z)
+
+	enquanto z faca
+		enquanto falso faca fimenquanto
+	fimenquanto
+
+	repita
+		repita
+se 1 > 7 entao
+	escreva("Nunca escreverah isso!")
+fimse
+		ate falso
+	ate verdadeiro
+
+	leia(x)
+	escreva(x)
+
+	se verdadeiro entao
+		
+		se falso entao
+			leia(y)
+		fimse
+
+		leia(z)
+
+		se z entao
+			se x entao
+				se y entao
+					
+				senao
+				fimse
+			fimse
+		senao
+			leia(x)
+		fimse
+	fimse
+
+	se (1+2)>3 entao escreva("teste")
+	senao escreva("teste2") fimse
+
+	se (1+2)>3 entao escreva("teste") fimse
+
+	se 1> 2 entao escreva("1 nunca sera maior que dois") fimse
+
+	leia                      (a)
+	leia(y)
+	leia(ax2
+	)
+
+	di <- (5 >= 3) e (3 <= 5)
+	di <- (5 > 3) e (3 < 5)
+	di <- (5 = 3) ou (3 <> 5)
+
+	di <- falso
+
+	di <- verdadeiro
+	ci <- nao (di)
+	ci <- nao nao di
+
+	b <- 10.5
+	ci <- nao falso
+
+	escreva("teste1 aaaaaaaaaaaaaa", "teste 2 aaaaaaaaaaaaaaaaaaaaaa", "teste 3", verdadeiro, falso)
+	y <- falso
+	x <- verdadeiro ou y
+	
+	ai <- falso
+	bi <- (ai)
+
+	a <- 7
+	b <- 9876
+
+	abs3s <- (6 * 9 / 10) mod 8 + (14 div 242) % (a \ b)
+
+	teste <- (abs3s > (a * 3 + 9 - 98721 / 868)) ou (a < 1243) e (7 <> b e 7 <> a)
+
+	escreva(56)
+
+	a <- 8
+
+	ax2 <- 10.5795
+
+	escreva(6, 8, 9, a, ax2, 7 + 8, (a+3) mod (ax2 * 4))
+
+	escreva(verdadeiro)
+	escreva(10.3)
+
+	leia(a)
+
+	x <- verdadeiro
+
+	a <- b
+
+	leia(b)
+
+fimalgoritmo
