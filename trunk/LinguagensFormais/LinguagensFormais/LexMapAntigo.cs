@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinguagensFormais
 {
-    public class LexMap
+    public class LexMapAntigo
     {
         public static Dictionary<String, Int32> Consts = new Dictionary<String, Int32>()
         {
@@ -16,6 +16,7 @@ namespace LinguagensFormais
             {"MENOS", 4},
             {"MULTIPLICACAO", 5},
             {"DIVISAO", 6},
+            {"MOD", 7},
             {"MENOR", 8},
             {"MAIOR", 9},
             {"IGUAL", 10},
@@ -23,11 +24,13 @@ namespace LinguagensFormais
             {"MENORIGUAL", 12},
             {"DIFERENTE", 13},
             {"ATRIBUICAO", 14},
+            {"DIV", 15},
             {"ABREPAR", 16},
             {"FECHAPAR", 17},
             {"DOISPONTOS", 20},
             {"VIRGULA", 22},
             {"CONSTREAL", 25},
+            {"ALGORITMO", 26},
             {"VAR", 27},
             {"INICIO", 28},
             {"FIMALGORITMO", 29},
@@ -67,7 +70,41 @@ namespace LinguagensFormais
 
         public static Dictionary<String, Int32> PalavraReservada = new Dictionary<String, Int32>()
         {
-            {"int", 45}
+            {"mod", 7},
+            {"div", 15},
+            {"algoritmo", 26},
+            {"var", 27},
+            {"inicio", 28},
+            {"fimalgoritmo", 29},
+            {"inteiro", 45},
+            {"escreva", 42},
+            {"leia", 43},
+            {"escreval", 44},
+            {"real", 46},
+            {"e", 47},
+            {"ou", 48},
+            {"verdadeiro", 52},
+            {"falso", 53},
+            {"nao", 59},
+            {"logico", 51},
+            {"se", 66},
+            {"entao", 67},
+            {"senao", 68},
+            {"fimse", 69},
+            {"para", 70},
+            {"de", 71},
+            {"ate", 72},
+            {"faca", 73},
+            {"fimpara", 74},
+            {"enquanto", 75},
+            {"fimenquanto", 76},
+            {"repita", 77},
+            {"procedimento", 78},
+            {"fimprocedimento", 79},
+            {"vazio", 80},
+            {"funcao", 81},
+            {"fimfuncao", 82},
+            {"retorne", 83}
         };
 
         public static Dictionary<Int32, String> TokenNome = new Dictionary<Int32, String>()
