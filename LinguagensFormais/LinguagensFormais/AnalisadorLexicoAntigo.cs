@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LinguagensFormais
 {
-    public class AnalisadorLexico
+    public class AnalisadorLexicoAntigo
     {
         public static void Analisar()
         {
@@ -262,11 +262,23 @@ namespace LinguagensFormais
                 }
                 else if (estado == LexMap.Consts["MENOR"])
                 {
-                    if (c.Equals('=') && endofline == false)
+                    if (c.Equals('-') && endofline == false)
+                    {
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                        TokenManager.Instance.TokenCode = LexMap.Consts["ATRIBUICAO"];
+                    }
+                    else if (c.Equals('=') && endofline == false)
                     {
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
                         TokenManager.Instance.TokenCode = LexMap.Consts["MENORIGUAL"];
+                    }
+                    else if (c.Equals('>') && endofline == false)
+                    {
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                        TokenManager.Instance.TokenCode = LexMap.Consts["DIFERENTE"];
                     }
                     else
                     {
