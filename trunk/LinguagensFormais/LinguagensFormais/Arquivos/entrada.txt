@@ -1,1 +1,18 @@
 ﻿5
+34534534
+3254.89
+int
+-
++
+=
+<
+>
+<=
+>=
+variavel
+meu_lindo_programinha
+meu_v1d4_l0k4
+"joão e o pé de feijão"
+(
+)
+,
