@@ -12,7 +12,7 @@ namespace LinguagensFormais
         {
             if (LineManager.Instance.ReadLine())
             {
-
+                AnalisadorLexico.Analisar();
             }
 
             return "";
