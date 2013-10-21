@@ -12,7 +12,17 @@ namespace LinguagensFormais
         {
             if (LineManager.Instance.ReadLine())
             {
-                AnalisadorLexico.Analisar();
+                while (true)
+                {
+                    try
+                    {
+                        AnalisadorLexico.Analisar();
+                    }
+                    catch (Exception)
+                    {
+                        return "";
+                    }
+                }
             }
 
             return "";
