@@ -62,12 +62,14 @@ namespace LinguagensFormais
             {"VAZIO", 80},
             {"FUNCAO", 81},
             {"FIMFUNCAO", 82},
-            {"RETORNE", 83}
+            {"RETORNE", 83},
+            {"SWITCH", 84}
         };
 
         public static Dictionary<String, Int32> PalavraReservada = new Dictionary<String, Int32>()
         {
-            {"int", 45}
+            {"int", 45},
+            {"switch", 84}
         };
 
         public static Dictionary<Int32, String> TokenNome = new Dictionary<Int32, String>()
@@ -127,7 +129,8 @@ namespace LinguagensFormais
             {80, "Tk_Vazio"},
             {81, "Tk_Funcao"},
             {82, "Tk_FimFuncao"},
-            {83, "Tk_Retorne"}
+            {83, "Tk_Retorne"},
+            {84, "Tk_Switch"}
         };
 
         public static List<char> Letras = new List<char>()
@@ -177,7 +180,7 @@ namespace LinguagensFormais
             }
             else if (c == '=')
             {
-                return LexMap.Consts["IGUAL"];
+                return LexMap.Consts["ATRIBUICAO"];
             }
             else if (c == '+')
             {
