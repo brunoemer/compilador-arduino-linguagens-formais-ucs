@@ -275,9 +275,18 @@ namespace LinguagensFormais
 
                     return true;
                 }
-                else if (estado == LexMap.Consts["IGUAL"])
+                else if (estado == LexMap.Consts["ATRIBUICAO"])
                 {
-                    TokenManager.Instance.TokenCode = LexMap.Consts["IGUAL"];
+                    if (c.Equals('=') && endofline == false)
+                    {
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                        TokenManager.Instance.TokenCode = LexMap.Consts["IGUAL"];
+                    }
+                    else
+                    {
+                        TokenManager.Instance.TokenCode = LexMap.Consts["ATRIBUICAO"];
+                    }
 
                     return true;
                 }

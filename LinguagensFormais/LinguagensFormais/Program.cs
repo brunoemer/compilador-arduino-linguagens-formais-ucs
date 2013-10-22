@@ -28,12 +28,9 @@ namespace LinguagensFormais
                 {
                     Console.WriteLine(codigo);
                     Console.Write(sb.ToString());
-                    Console.WriteLine(TS.Instance.ToString());
                 }
 
-                Arquivo.Write(@"Arquivos/codigo.c", codigo);
                 Arquivo.Write(@"Arquivos/saida_lex.txt", sb.ToString());
-                Arquivo.Write(@"Arquivos/saida_ts.txt", TS.Instance.ToString());
             }
             catch (AnalisadorException ae)
             {
