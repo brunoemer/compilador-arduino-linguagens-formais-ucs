@@ -35,9 +35,10 @@ namespace LinguagensFormais
                     nome = LexMap.TokenNome[TokenManager.Instance.TokenCode];
 
                     LineManager.Instance.LinesOut.Add(
-                        String.Format("Cod: {0}\tLinha: {1}\tTipo: {2}\tLexema: {3}\n",
-                        TokenManager.Instance.TokenCode, 
-                        LineManager.Instance.LineIndex, 
+                        String.Format("Cod: {0}\tLinha: {1}\tColuna: {2}\tTipo: {3}\tLexema: {4}\n",
+                        TokenManager.Instance.TokenCode,
+                        LineManager.Instance.LineIndex,
+                        LineManager.Instance.PosStartToken, 
                         nome,
                         TokenManager.Instance.TokenSymbol));
                 }
@@ -151,7 +152,7 @@ namespace LinguagensFormais
                     }
                     else if(c.Equals('.') && endofline == false)
                     {
-                        estado = LexMap.Consts["CONSTREAL"];
+                        estado = LexMap.Consts["CONSTFLOAT"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
                     }
@@ -161,7 +162,7 @@ namespace LinguagensFormais
                         return true;
                     }
                 }
-                else if (estado == LexMap.Consts["CONSTREAL"])
+                else if (estado == LexMap.Consts["CONSTFLOAT"])
                 {
                     if (LexMap.Numeros.Contains(c) && endofline == false)
                     {
@@ -170,7 +171,7 @@ namespace LinguagensFormais
                     }
                     else
                     {
-                        TokenManager.Instance.TokenCode = LexMap.Consts["CONSTREAL"];
+                        TokenManager.Instance.TokenCode = LexMap.Consts["CONSTFLOAT"];
                         return true;
                     }
                 }
@@ -224,6 +225,12 @@ namespace LinguagensFormais
 
                     return true;
                 }
+                else if (estado == LexMap.Consts["PONTOVIRGULA"])
+                {
+                    TokenManager.Instance.TokenCode = LexMap.Consts["PONTOVIRGULA"];
+
+                    return true;
+                }
                 else if (estado == LexMap.Consts["ABREPAR"])
                 {
                     TokenManager.Instance.TokenCode = LexMap.Consts["ABREPAR"];
@@ -233,6 +240,18 @@ namespace LinguagensFormais
                 else if (estado == LexMap.Consts["FECHAPAR"])
                 {
                     TokenManager.Instance.TokenCode = LexMap.Consts["FECHAPAR"];
+
+                    return true;
+                }
+                else if (estado == LexMap.Consts["ABRECHAVES"])
+                {
+                    TokenManager.Instance.TokenCode = LexMap.Consts["ABRECHAVES"];
+
+                    return true;
+                }
+                else if (estado == LexMap.Consts["FECHACHAVES"])
+                {
+                    TokenManager.Instance.TokenCode = LexMap.Consts["FECHACHAVES"];
 
                     return true;
                 }
