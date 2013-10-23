@@ -27,7 +27,8 @@ namespace LinguagensFormais
             {"FECHAPAR", 17},
             {"DOISPONTOS", 20},
             {"VIRGULA", 22},
-            {"CONSTREAL", 25},
+            {"PONTOVIRGULA", 23},
+            {"CONSTFLOAT", 25},
             {"VAR", 27},
             {"INICIO", 28},
             {"FIMALGORITMO", 29},
@@ -35,41 +36,60 @@ namespace LinguagensFormais
             {"LEIA", 43},
             {"ESCREVAL", 44},
             {"INTEIRO", 45},
-            {"REAL", 46},
+            {"FLOAT", 46},
             {"E", 47},
             {"OU", 48},
+            {"LONG", 49},
+            {"BYTE", 50},
             {"LOGICO", 51},
-            {"VERDADEIRO", 52},
-            {"FALSO", 53},
+            {"TRUE", 52},
+            {"FALSE", 53},
+            {"HIGH", 54},
+            {"LOW", 55},
+            {"INPUT", 56},
+            {"OUTPUT", 57},
             {"NAO", 59},
             {"STRING", 61},
             {"DIVC", 64},
             {"MODC", 65},
-            {"SE", 66},
-            {"ENTAO", 67},
-            {"SENAO", 68},
-            {"FIMSE", 69},
-            {"PARA", 70},
-            {"DE", 71},
-            {"ATE", 72},
-            {"FACA", 73},
-            {"FIMPARA", 74},
-            {"ENQUANTO", 75},
-            {"FIMENQUANTO", 76},
-            {"REPITA", 77},
+            {"IF", 66},
+            {"ELSE", 68},
+            {"FOR", 70},
+            {"ABRECHAVES", 73},
+            {"FECHACHAVES", 74},
+            {"WHILE", 75},
+            {"DO", 77},
             {"PROCEDIMENTO", 78},
             {"FIMPROCEDIMENTO", 79},
             {"VAZIO", 80},
             {"FUNCAO", 81},
             {"FIMFUNCAO", 82},
             {"RETORNE", 83},
-            {"SWITCH", 84}
+            {"SWITCH", 84},
+            {"CASE", 85},
+            {"BREAK", 86}
         };
 
         public static Dictionary<String, Int32> PalavraReservada = new Dictionary<String, Int32>()
         {
             {"int", 45},
-            {"switch", 84}
+            {"float", 46},
+            {"long", 49},
+            {"byte", 50},
+            {"switch", 84},
+            {"case", 85},
+            {"break", 86},
+            {"if", 66},
+            {"else", 68},
+            {"for", 70},
+            {"while", 75},
+            {"do", 77},
+            {"true", 52},
+            {"false", 53},
+            {"high", 54},
+            {"low", 55},
+            {"input", 56},
+            {"output", 57}
         };
 
         public static Dictionary<Int32, String> TokenNome = new Dictionary<Int32, String>()
@@ -93,7 +113,8 @@ namespace LinguagensFormais
             {17, "Tk_Fecha_Parenteses"},
             {20, "Tk_Dois_Pontos"},
             {22, "TK_Virgula"},
-            {25, "Tk_Const_Real"},
+            {23, "TK_Ponto_Virgula"},
+            {25, "Tk_Const_Float"},
             {26, "Tk_Algoritmo"},
             {27, "Tk_Var"},
             {28, "Tk_Inicio"},
@@ -102,35 +123,38 @@ namespace LinguagensFormais
             {43, "Tk_Leia"},
             {44, "Tk_Escreval"},
             {45, "Tk_Inteiro"},
-            {46, "Tk_Real"},
+            {46, "Tk_Float"},
             {47, "Tk_E"},
             {48, "Tk_Ou"},
+            {49, "Tk_Long"},
+            {50, "Tk_Byte"},
             {51, "Tk_Logico"},
-            {52, "Tk_Verdadeiro"},
-            {53, "Tk_Falso"},
+            {52, "Tk_True"},
+            {53, "Tk_False"},
+            {54, "Tk_High"},
+            {55, "Tk_Low"},
+            {56, "Tk_Input"},
+            {57, "Tk_Output"},
             {59, "Tk_Nao"},
             {61, "Tk_String"},
             {64, "Tk_Div_Inteira_Char"},
             {65, "Tk_Resto_Char"},
-            {66, "Tk_Se"},
-            {67, "Tk_Entao"},
-            {68, "Tk_SeNao"},
-            {69, "Tk_FimSe"},
-            {70, "Tk_Para"},
-            {71, "Tk_De"},
-            {72, "Tk_Ate"},
-            {73, "Tk_Faca"},
-            {74, "Tk_FimPara"},
-            {75, "Tk_Enquanto"},
-            {76, "Tk_FimEnquanto"},
-            {77, "Tk_Repita"},
+            {66, "Tk_If"},
+            {68, "Tk_Else"},
+            {70, "Tk_For"},
+            {73, "Tk_Abre_Chaves"},
+            {74, "Tk_Fecha_Chaves"},
+            {75, "Tk_While"},
+            {77, "Tk_Do"},
             {78, "Tk_Procedimento"},
             {79, "Tk_FimProcedimento"},
             {80, "Tk_Vazio"},
             {81, "Tk_Funcao"},
             {82, "Tk_FimFuncao"},
             {83, "Tk_Retorne"},
-            {84, "Tk_Switch"}
+            {84, "Tk_Switch"},
+            {85, "Tk_Case"},
+            {86, "Tk_Break"}
         };
 
         public static List<char> Letras = new List<char>()
@@ -170,6 +194,10 @@ namespace LinguagensFormais
             {
                 return LexMap.Consts["VIRGULA"];
             }
+            else if (c == ';')
+            {
+                return LexMap.Consts["PONTOVIRGULA"];
+            }
             else if (c == '<')
             {
                 return LexMap.Consts["MENOR"];
@@ -205,6 +233,14 @@ namespace LinguagensFormais
             else if (c == ')')
             {
                 return LexMap.Consts["FECHAPAR"];
+            }
+            else if (c == '{')
+            {
+                return LexMap.Consts["ABRECHAVES"];
+            }
+            else if (c == '}')
+            {
+                return LexMap.Consts["FECHACHAVES"];
             }
             else if (c == '\\')
             {
