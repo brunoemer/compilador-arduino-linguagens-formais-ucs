@@ -324,12 +324,6 @@ namespace LinguagensFormais
 
                     return true;
                 }
-                else if (estado == LexMap.Consts["DIVC"])
-                {
-                    TokenManager.Instance.TokenCode = LexMap.Consts["DIVC"];
-
-                    return true;
-                }
                 else if (estado == LexMap.Consts["MODC"])
                 {
                     TokenManager.Instance.TokenCode = LexMap.Consts["MODC"];

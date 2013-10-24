@@ -38,10 +38,7 @@ high
 low
 input
 output
+default
 !=
 &&
 ||
-+=
--=
-*=
-/=
