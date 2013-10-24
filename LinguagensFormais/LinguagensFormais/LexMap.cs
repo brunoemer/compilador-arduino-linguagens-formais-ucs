@@ -50,7 +50,6 @@ namespace LinguagensFormais
             {"OUTPUT", 57},
             {"NAO", 59},
             {"STRING", 61},
-            {"DIVC", 64},
             {"MODC", 65},
             {"IF", 66},
             {"ELSE", 68},
@@ -112,8 +111,8 @@ namespace LinguagensFormais
             {16, "Tk_Abre_Parenteses"},
             {17, "Tk_Fecha_Parenteses"},
             {20, "Tk_Dois_Pontos"},
-            {22, "TK_Virgula"},
-            {23, "TK_Ponto_Virgula"},
+            {22, "Tk_Virgula"},
+            {23, "Tk_Ponto_Virgula"},
             {25, "Tk_Const_Float"},
             {26, "Tk_Algoritmo"},
             {27, "Tk_Var"},
@@ -137,7 +136,6 @@ namespace LinguagensFormais
             {57, "Tk_Output"},
             {59, "Tk_Nao"},
             {61, "Tk_String"},
-            {64, "Tk_Div_Inteira_Char"},
             {65, "Tk_Resto_Char"},
             {66, "Tk_If"},
             {68, "Tk_Else"},
@@ -241,10 +239,6 @@ namespace LinguagensFormais
             else if (c == '}')
             {
                 return LexMap.Consts["FECHACHAVES"];
-            }
-            else if (c == '\\')
-            {
-                return LexMap.Consts["DIVC"];
             }
             else if (c == '%')
             {
