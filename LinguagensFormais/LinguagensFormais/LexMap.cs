@@ -10,10 +10,10 @@ namespace LinguagensFormais
     {
         public static Dictionary<String, Int32> Consts = new Dictionary<String, Int32>()
         {
-            {"CONSTINTEIRO", 1},
+            {"CONSTINTEIRO", 1}, //q1
             {"ID", 2},
-            {"MAIS", 3},
-            {"MENOS", 4},
+            {"MAIS", 3}, //q10
+            {"MENOS", 4}, //q11
             {"MULTIPLICACAO", 5},
             {"DIVISAO", 6},
             {"MENOR", 8},
@@ -28,10 +28,12 @@ namespace LinguagensFormais
             {"DOISPONTOS", 20},
             {"VIRGULA", 22},
             {"PONTOVIRGULA", 23},
-            {"CONSTFLOAT", 25},
-            {"VAR", 27},
-            {"INICIO", 28},
-            {"FIMALGORITMO", 29},
+            {"CONSTFLOAT", 25}, //q26
+            {"CONSTFLOATPONTO", 26}, //q21
+            {"CONSTFLOATPONTONUM", 27}, //q22
+            {"CONSTFLOATNUME", 28}, //q23
+            {"CONSTFLOATNUMPONTO", 29}, //q24
+            {"CONSTFLOATE", 30}, //q25
             {"ESCREVA", 42},
             {"LEIA", 43},
             {"ESCREVAL", 44},
@@ -66,7 +68,8 @@ namespace LinguagensFormais
             {"RETORNE", 83},
             {"SWITCH", 84},
             {"CASE", 85},
-            {"BREAK", 86}
+            {"BREAK", 86},
+            {"DEFAULT", 87}
         };
 
         public static Dictionary<String, Int32> PalavraReservada = new Dictionary<String, Int32>()
@@ -78,6 +81,7 @@ namespace LinguagensFormais
             {"switch", 84},
             {"case", 85},
             {"break", 86},
+            {"default", 87},
             {"if", 66},
             {"else", 68},
             {"for", 70},
@@ -114,10 +118,6 @@ namespace LinguagensFormais
             {22, "Tk_Virgula"},
             {23, "Tk_Ponto_Virgula"},
             {25, "Tk_Const_Float"},
-            {26, "Tk_Algoritmo"},
-            {27, "Tk_Var"},
-            {28, "Tk_Inicio"},
-            {29, "Tk_Fim_Algoritmo"},
             {42, "Tk_Escreva"},
             {43, "Tk_Leia"},
             {44, "Tk_Escreval"},
@@ -152,7 +152,8 @@ namespace LinguagensFormais
             {83, "Tk_Retorne"},
             {84, "Tk_Switch"},
             {85, "Tk_Case"},
-            {86, "Tk_Break"}
+            {86, "Tk_Break"},
+            {87, "Tk_Default"}
         };
 
         public static List<char> Letras = new List<char>()
@@ -176,11 +177,15 @@ namespace LinguagensFormais
             {
                 return LexMap.Consts["CONSTINTEIRO"];
             }
-            if (LexMap.Letras.Contains(c))
+            if (LexMap.Letras.Contains(c) || c == '_') // pode comecar com _
             {
                 return LexMap.Consts["ID"];
             }
-            else if(c == ':')
+            else if (c == '.')
+            {
+                return LexMap.Consts["CONSTFLOATPONTO"];
+            }
+            else if (c == ':')
             {
                 return LexMap.Consts["DOISPONTOS"];
             }
