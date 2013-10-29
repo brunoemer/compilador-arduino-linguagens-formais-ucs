@@ -152,7 +152,13 @@ namespace LinguagensFormais
                     }
                     else if(c.Equals('.') && endofline == false)
                     {
-                        estado = LexMap.Consts["CONSTFLOAT"];
+                        estado = LexMap.Consts["CONSTFLOATNUMPONTO"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else if (c.Equals('e') && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOATNUME"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
                     }
@@ -175,11 +181,86 @@ namespace LinguagensFormais
                         return true;
                     }
                 }
+                else if (estado == LexMap.Consts["CONSTFLOATPONTO"])
+                {
+                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOATPONTONUM"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    // se nao for um ponto seguido de um numero? erro?
+                }
+                else if (estado == LexMap.Consts["CONSTFLOATPONTONUM"])
+                {
+                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    {
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else if (c.Equals('e') && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOATNUME"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else
+                    {
+                        TokenManager.Instance.TokenCode = LexMap.Consts["CONSTFLOAT"];
+                        return true;
+                    }
+                }
+                else if (estado == LexMap.Consts["CONSTFLOATNUME"])
+                {
+                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOAT"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else if ((c.Equals('+') || c.Equals('-')) && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOATE"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    // erro?
+                }
+                else if (estado == LexMap.Consts["CONSTFLOATNUMPONTO"])
+                {
+                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOAT"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else if (c.Equals('e') && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOATE"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else
+                    {
+                        TokenManager.Instance.TokenCode = LexMap.Consts["CONSTFLOAT"];
+                        return true;
+                    }
+                }
+                else if (estado == LexMap.Consts["CONSTFLOATE"])
+                {
+                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOAT"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    // se nao terminar em numero? erro?
+                }
                 else if (estado == LexMap.Consts["ID"])
                 {
-                    if ((LexMap.Letras.Contains(c) || 
-                         LexMap.Numeros.Contains(c) || 
-                         LexMap.Caracteres.Contains(c)) && 
+                    if ((LexMap.Letras.Contains(c) ||
+                         LexMap.Numeros.Contains(c) ||
+                         LexMap.Caracteres.Contains(c)) &&
                          (endofline == false))
                     {
                         TokenManager.Instance.TokenSymbol += c;
@@ -257,15 +338,43 @@ namespace LinguagensFormais
                 }
                 else if (estado == LexMap.Consts["MAIS"])
                 {
-                    TokenManager.Instance.TokenCode = LexMap.Consts["MAIS"];
-
-                    return true;
+                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTINTEIRO"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else if (c.Equals('.') && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOATPONTO"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else
+                    {
+                        TokenManager.Instance.TokenCode = LexMap.Consts["MAIS"];
+                        return true;
+                    }
                 }
                 else if (estado == LexMap.Consts["MENOS"])
                 {
-                    TokenManager.Instance.TokenCode = LexMap.Consts["MENOS"];
-
-                    return true;
+                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTINTEIRO"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else if (c.Equals('.') && endofline == false)
+                    {
+                        estado = LexMap.Consts["CONSTFLOATPONTO"];
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                    }
+                    else
+                    {
+                        TokenManager.Instance.TokenCode = LexMap.Consts["MENOS"];
+                        return true;
+                    }
                 }
                 else if (estado == LexMap.Consts["MULTIPLICACAO"])
                 {
