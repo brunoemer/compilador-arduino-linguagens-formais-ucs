@@ -18,7 +18,7 @@ namespace LinguagensFormais
                     {
                         AnalisadorLexico.Analisar();
                     }
-                    catch (Exception)
+                    catch (AnalisadorFimArquivoException)
                     {
                         return "";
                     }

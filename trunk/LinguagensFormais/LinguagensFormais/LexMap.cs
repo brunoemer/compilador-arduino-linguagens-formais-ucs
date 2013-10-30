@@ -26,6 +26,7 @@ namespace LinguagensFormais
             {"ABREPAR", 16},
             {"FECHAPAR", 17},
             {"DOISPONTOS", 20},
+            {"PONTO", 21},
             {"VIRGULA", 22},
             {"PONTOVIRGULA", 23},
             {"CONSTFLOAT", 25}, //q26
@@ -115,6 +116,7 @@ namespace LinguagensFormais
             {16, "Tk_Abre_Parenteses"},
             {17, "Tk_Fecha_Parenteses"},
             {20, "Tk_Dois_Pontos"},
+            {21, "Tk_Ponto"},
             {22, "Tk_Virgula"},
             {23, "Tk_Ponto_Virgula"},
             {25, "Tk_Const_Float"},
@@ -248,6 +250,18 @@ namespace LinguagensFormais
             else if (c == '%')
             {
                 return LexMap.Consts["MODC"];
+            }
+            else if (c == '!')
+            {
+                return LexMap.Consts["DIFERENTE"];
+            }
+            else if (c == '&')
+            {
+                return LexMap.Consts["E"];
+            }
+            else if (c == '|')
+            {
+                return LexMap.Consts["OU"];
             }
 
             return 0;
