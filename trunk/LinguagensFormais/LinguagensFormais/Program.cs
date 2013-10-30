@@ -9,7 +9,7 @@ namespace LinguagensFormais
     {
         static void Main(string[] args)
         {
-            bool debug = true;
+            bool debug = false;
 
             Console.WriteLine("Iniciado processo...");
 
