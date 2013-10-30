@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalisadorException.cs" />
+    <Compile Include="AnalisadorFimArquivoException.cs" />
     <Compile Include="AnalisadorLexico.cs" />
     <Compile Include="AnalisadorSintaticoAntigo.cs" />
     <Compile Include="Arquivo.cs" />
@@ -73,7 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Material\automato.jff" />
+    <None Include="Material\automato.jff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Arquivos\entrada.txt">

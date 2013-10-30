@@ -71,14 +71,14 @@ namespace LinguagensFormais
             {
                 if (!LineManager.Instance.ReadLine())
                 {
-                    return false;
+                    throw new AnalisadorFimArquivoException("O arquivo chegou ao fim.");
                 }
 
                 while (String.IsNullOrEmpty(LineManager.Instance.LineContent.Trim()))
                 {
                     if (!LineManager.Instance.ReadLine())
                     {
-                        return false;
+                        throw new AnalisadorFimArquivoException("O arquivo chegou ao fim.");
                     }
                 }
                 c = LineManager.Instance.LineContent[LineManager.Instance.PosCurrentCaracter];
@@ -189,7 +189,11 @@ namespace LinguagensFormais
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
                     }
-                    // se nao for um ponto seguido de um numero? erro?
+                    else
+                    {
+                        TokenManager.Instance.TokenCode = LexMap.Consts["PONTO"];
+                        return true;
+                    }
                 }
                 else if (estado == LexMap.Consts["CONSTFLOATPONTONUM"])
                 {
@@ -438,6 +442,39 @@ namespace LinguagensFormais
                     TokenManager.Instance.TokenCode = LexMap.Consts["MODC"];
 
                     return true;
+                }
+                else if (estado == LexMap.Consts["DIFERENTE"])
+                {
+                    if (c.Equals('=') && endofline == false)
+                    {
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                        TokenManager.Instance.TokenCode = LexMap.Consts["DIFERENTE"];
+
+                        return true;
+                    }
+                }
+                else if (estado == LexMap.Consts["E"])
+                {
+                    if (c.Equals('&') && endofline == false)
+                    {
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                        TokenManager.Instance.TokenCode = LexMap.Consts["E"];
+
+                        return true;
+                    }
+                }
+                else if (estado == LexMap.Consts["OU"])
+                {
+                    if (c.Equals('|') && endofline == false)
+                    {
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                        TokenManager.Instance.TokenCode = LexMap.Consts["OU"];
+
+                        return true;
+                    }
                 }
             }
 
