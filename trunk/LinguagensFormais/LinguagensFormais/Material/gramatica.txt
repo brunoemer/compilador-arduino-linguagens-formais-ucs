@@ -1,1 +1,16 @@
-﻿Alg -> 
+﻿ProgArduino -> ListaComandos
+
+ListaComandos -> DeclaraVar | Exp | If | For | While | DoWhile
+
+DeclaraVar -> TipoVar id ListaVar
+ListaVar -> , id ListaVar | {}
+
+Exp -> 
+
+ListaFunc -> TipoRetorno id (ListaParm){ ListaComandos Retorno }
+ListaParm -> 
+ListaDec -> 
+Retorno -> return Exp; | {}
+
+TipoVar -> int | long | float | byte
+TipoRetorno -> TipoVar | void
