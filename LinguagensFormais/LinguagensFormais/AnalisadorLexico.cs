@@ -71,15 +71,18 @@ namespace LinguagensFormais
             {
                 if (!LineManager.Instance.ReadLine())
                 {
-                    throw new AnalisadorFimArquivoException("O arquivo chegou ao fim.");
+                    //throw new AnalisadorFimArquivoException("O arquivo chegou ao fim.");
+                    return false;
                 }
 
                 while (String.IsNullOrEmpty(LineManager.Instance.LineContent.Trim()))
                 {
                     if (!LineManager.Instance.ReadLine())
                     {
-                        throw new AnalisadorFimArquivoException("O arquivo chegou ao fim.");
+                        //throw new AnalisadorFimArquivoException("O arquivo chegou ao fim.");
+                        return false;
                     }
+                    
                 }
                 c = LineManager.Instance.LineContent[LineManager.Instance.PosCurrentCaracter];
             }
