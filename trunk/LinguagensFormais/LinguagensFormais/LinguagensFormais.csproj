@@ -82,6 +82,9 @@
     <Content Include="Arquivos\entrada.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Arquivos\entrada_parte1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Arquivos\saida_lex.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
