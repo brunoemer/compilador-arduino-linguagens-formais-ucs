@@ -11,14 +11,12 @@ ListaComandos ->
 	ListaComandos
 
 DeclaraVar ->
-	TipoVar id ListaVar |
-	TipoVar id ListaVarTipo
+	TipoVar id ListaVar;
+
 ListaVar -> 
 	, id ListaVar |
 	{}
-ListaVarTipo -> 
-	, TipoVar id ListaVarTipo |
-	{}
+
 TipoVar ->
 	int |
 	long |
