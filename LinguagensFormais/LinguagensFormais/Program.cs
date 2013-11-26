@@ -26,7 +26,7 @@ namespace LinguagensFormais
 
                 if (debug)
                 {
-                    Console.WriteLine(codigo);
+                    Console.WriteLine("Sintatico: "+codigo);
                     Console.Write(sb.ToString());
                 }
 

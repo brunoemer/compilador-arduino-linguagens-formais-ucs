@@ -81,6 +81,14 @@ While ->
 DoWhile ->
 	do { ListaComandos } while ( Exp );
 
+Switch ->
+	switch ( Exp ) { ListaCase }
+ListaCase ->
+	case id : ListaComandos break; |
+	case id : ListaComandos |
+	ListaCase |
+	{}
+
 ListaFunc -> 
 	TipoRetorno id ( ListaParm ) { ListaComandos Retorno }
 ListaParm ->
