@@ -49,7 +49,7 @@ namespace LinguagensFormais
             }
             else
             {
-                throw new Exception("O reconhecedor encontrou uma sintaxe não finalizada" + Environment.NewLine + sb.ToString());
+                throw new AnalisadorFimArquivoException("O reconhecedor encontrou uma sintaxe não finalizada" + Environment.NewLine + sb.ToString());
             }
         }
 
@@ -392,6 +392,12 @@ namespace LinguagensFormais
                 else if (estado == LexMap.Consts["DIVISAO"])
                 {
                     TokenManager.Instance.TokenCode = LexMap.Consts["DIVISAO"];
+
+                    return true;
+                }
+                else if (estado == LexMap.Consts["NAO"])
+                {
+                    TokenManager.Instance.TokenCode = LexMap.Consts["NAO"];
 
                     return true;
                 }

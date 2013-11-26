@@ -2,7 +2,7 @@
 
 ListaComandos ->
 	DeclaraVar |
-	Exp |
+	Atribuicao |
 	If |
 	For |
 	While |
@@ -23,10 +23,47 @@ TipoVar ->
 	float |
 	byte
 
-Exp -> 
-	id () |
-	Atribuicao |
-	?
+Atribuicao ->
+	<- Exp
+
+Exp -> T R
+R -> || T R1
+R -> Ɛ
+
+T -> F U
+U -> && F U1
+U -> Ɛ
+
+F -> G
+
+G -> ~G1
+G -> H V
+V -> > H V1
+V -> == H V1
+V -> < H V1
+V -> >= H V1
+V -> != H V1
+V -> <= H V1
+V -> Ɛ
+
+H -> J X
+X -> + J X1
+X -> - J X1
+X -> Ɛ
+
+J -> K Y
+Y -> * K Y1
+Y -> / K Y1
+Y -> % K Y1
+Y -> Ɛ
+
+K ->
+	int |
+	long |
+	byte |
+	float |
+	id |
+	(E)
 
 If ->
 	if ( Exp ) { ListaComandos IfEnd
