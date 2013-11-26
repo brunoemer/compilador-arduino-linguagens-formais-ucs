@@ -47,7 +47,7 @@ namespace LinguagensFormais
                 Console.WriteLine("------------");
                 Console.WriteLine();
             }
-            catch (Exception e)
+            /*catch (Exception e)
             {
                 Console.WriteLine();
                 Console.WriteLine("---MEMORIA---");
@@ -56,7 +56,7 @@ namespace LinguagensFormais
                 Console.WriteLine();
                 Console.WriteLine("-------------");
                 Console.WriteLine();
-            }
+            }*/
 
             Console.WriteLine("Processo concluído, precione uma tecla...");
             Console.ReadKey();

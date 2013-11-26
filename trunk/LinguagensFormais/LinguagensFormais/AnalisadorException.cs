@@ -12,7 +12,8 @@ namespace LinguagensFormais
         private int _Pos;
         public int Pos
         {
-            get {
+            get
+            {
                 return this._Pos;
             }
         }
@@ -71,8 +72,9 @@ namespace LinguagensFormais
         public AnalisadorException(string message) : base(message)
         {
             this._Pos = LineManager.Instance.PosStartToken;
-            this._Col = LineManager.Instance.LineIndex;
-            this._Linha = TokenManager.Instance.TokenCode;
+            this._Col = LineManager.Instance.PosCurrentCaracter;
+            this._Linha = LineManager.Instance.LineIndex;
+            this._TokenCod = TokenManager.Instance.TokenCode;
             this._Token = TokenManager.Instance.TokenSymbol;
         }
 

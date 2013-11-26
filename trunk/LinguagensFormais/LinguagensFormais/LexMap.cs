@@ -263,6 +263,10 @@ namespace LinguagensFormais
             {
                 return LexMap.Consts["OU"];
             }
+            else if (c == '~')
+            {
+                return LexMap.Consts["NAO"];
+            }
 
             return 0;
         }
