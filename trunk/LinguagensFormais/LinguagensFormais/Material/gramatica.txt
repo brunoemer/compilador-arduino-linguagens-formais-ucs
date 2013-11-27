@@ -23,8 +23,7 @@ TipoVar ->
 	float |
 	byte
 
-Atribuicao ->
-	<- Exp
+Atribuicao -> id = Exp
 
 Exp -> T R
 R -> || T R1
@@ -36,8 +35,9 @@ U -> Ɛ
 
 F -> G
 
-G -> ~G1
+G -> ~G
 G -> H V
+
 V -> > H V1
 V -> == H V1
 V -> < H V1
@@ -63,7 +63,8 @@ K ->
 	byte |
 	float |
 	id |
-	(E)
+	(E) |
+	funcao() [PRECISA DIFERENCIAR VOID DE OUTROS TIPOS?]
 
 If ->
 	if ( Exp ) { ListaComandos IfEnd
