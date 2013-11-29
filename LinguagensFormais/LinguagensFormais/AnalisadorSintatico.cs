@@ -87,13 +87,15 @@ namespace LinguagensFormais
             //atribuição
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             {
-                AnalisadorLexico.Analisar();
-                if (TokenManager.Instance.TokenCode == LexMap.Consts["ATRIBUICAO"])
+                this.Atribuicao();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
                 {
-                    this.Atribuicao();
+                    throw new AnalisadorException("O Token ; era esperado");
                 }
             }
 
+            // fim de bloco
             if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
             {
                 //recursão
@@ -390,11 +392,10 @@ namespace LinguagensFormais
 
         public void Atribuicao()
         {
-            this.Exp();
-
-            if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["ATRIBUICAO"])
             {
-                throw new AnalisadorException("O Token ; era esperado");
+                this.Exp();
             }
 
         }
@@ -424,7 +425,6 @@ namespace LinguagensFormais
 
                 this.ListaComandos();
 
-                //AnalisadorLexico.Analisar();
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
                 {
                     throw new AnalisadorException("O token } era esperado");
@@ -540,7 +540,77 @@ namespace LinguagensFormais
 
         private void For()
         {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["FOR"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
+                {
+                    throw new AnalisadorException("O token ( era esperado");
+                }
 
+                this.ListaAtrib();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+                {
+                    throw new AnalisadorException("O token ; era esperado");
+                }
+
+                this.Exp();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+                {
+                    throw new AnalisadorException("O token ; era esperado");
+                }
+
+                // falta o i++
+                this.ListaAtrib();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+                {
+                    throw new AnalisadorException("O token ) era esperado");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABRECHAVES"])
+                {
+                    throw new AnalisadorException("O token { era esperado");
+                }
+
+                this.ListaComandos();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
+                {
+                    throw new AnalisadorException("O token } era esperado");
+                }
+            }
         }
+
+        private void ListaAtrib()
+        {
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+            {
+                throw new AnalisadorException("O token identificador era esperado");
+            }
+            this.Atribuicao();
+
+            this.ListaAtribA();
+        }
+
+        private void ListaAtribA()
+        {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["VIRGULA"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                {
+                    throw new AnalisadorException("O token identificador era esperado");
+                }
+
+                this.Atribuicao();
+
+                this.ListaAtribA();
+            }
+        }
+
+
     }
 }
