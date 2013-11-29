@@ -81,11 +81,11 @@ DoWhile ->
 
 [BRUNO]
 For ->
-	for ( DeclaraVar; ListaExp; ListaExp ) { ListaComandos }
-ListaExp ->
-	Exp ListaExpA
-ListaExpA ->
-	, ListaExpA |
+	for ( ListaAtrib; Exp; ListaAtrib ) { ListaComandos }
+ListaAtrib ->
+	Atribuicao ListaAtribA
+ListaAtribA ->
+	, Atribuicao ListaAtribA |
 	{}
 
 [GLAUBER]
