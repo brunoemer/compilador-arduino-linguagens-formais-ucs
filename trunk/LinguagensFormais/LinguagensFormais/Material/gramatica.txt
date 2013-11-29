@@ -79,8 +79,18 @@ While ->
 DoWhile ->
 	do { ListaComandos } while ( Exp );
 
+[BRUNO]
 For ->
 	for ( DeclaraVar; ListaExp; ListaExp ) { ListaComandos }
+ListaExp ->
+	Exp ListaExpA
+ListaExpA ->
+	, ListaExpA |
+	{}
+
+[GLAUBER]
+For ->
+	for ( ListaExp; Exp; ListaExp ) { ListaComandos }
 ListaExp ->
 	Exp ListaExpA
 ListaExpA ->
