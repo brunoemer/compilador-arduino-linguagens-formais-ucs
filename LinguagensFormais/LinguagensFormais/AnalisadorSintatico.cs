@@ -495,6 +495,7 @@ namespace LinguagensFormais
         {
             if (TokenManager.Instance.TokenCode == LexMap.Consts["DO"])
             {
+                AnalisadorLexico.Analisar();
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["ABRECHAVES"])
                 {
                     throw new AnalisadorException("O token { era esperado");
