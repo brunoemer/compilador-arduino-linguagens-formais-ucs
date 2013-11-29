@@ -72,6 +72,12 @@ namespace LinguagensFormais
                 this.While();
             }
 
+            //do while
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["DO"])
+            {
+                this.DoWhile();
+            }
+
             //for
 
 
@@ -481,6 +487,50 @@ namespace LinguagensFormais
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
                 {
                     throw new AnalisadorException("O token } era esperado");
+                }
+            }
+        }
+
+        private void DoWhile()
+        {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["DO"])
+            {
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABRECHAVES"])
+                {
+                    throw new AnalisadorException("O token { era esperado");
+                }
+
+                this.ListaComandos();
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
+                {
+                    throw new AnalisadorException("O token } era esperado");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["WHILE"])
+                {
+                    throw new AnalisadorException("O token while era esperado");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
+                {
+                    throw new AnalisadorException("O token ( era esperado");
+                }
+
+                this.Exp();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+                {
+                    throw new AnalisadorException("O token ) era esperado");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+                {
+                    throw new AnalisadorException("O token ; era esperado");
                 }
             }
         }
