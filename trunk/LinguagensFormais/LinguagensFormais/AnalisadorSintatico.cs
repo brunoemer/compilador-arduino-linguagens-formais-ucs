@@ -79,8 +79,10 @@ namespace LinguagensFormais
             }
 
             //for
-
-
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["FOR"])
+            {
+                this.For();
+            }
 
             //atribuição
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
@@ -92,12 +94,15 @@ namespace LinguagensFormais
                 }
             }
 
-            //recursão
-            try
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
             {
-                this.ListaComandos();
+                //recursão
+                try
+                {
+                    this.ListaComandos();
+                }
+                catch (AnalisadorFimArquivoException exc) { }
             }
-            catch (AnalisadorFimArquivoException exc) { }
         }
 
         private void DeclaraVar()
@@ -419,7 +424,7 @@ namespace LinguagensFormais
 
                 this.ListaComandos();
 
-                AnalisadorLexico.Analisar();
+                //AnalisadorLexico.Analisar();
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
                 {
                     throw new AnalisadorException("O token } era esperado");
@@ -440,7 +445,6 @@ namespace LinguagensFormais
                     LineManager.Instance.ResetToLastPos();
                     this.ListaComandos();
 
-                    AnalisadorLexico.Analisar();
                     if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
                     {
                         throw new AnalisadorException("O token } era esperado");
@@ -483,7 +487,6 @@ namespace LinguagensFormais
 
                 this.ListaComandos();
 
-                AnalisadorLexico.Analisar();
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
                 {
                     throw new AnalisadorException("O token } era esperado");
@@ -503,7 +506,6 @@ namespace LinguagensFormais
 
                 this.ListaComandos();
 
-                AnalisadorLexico.Analisar();
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
                 {
                     throw new AnalisadorException("O token } era esperado");
@@ -534,6 +536,11 @@ namespace LinguagensFormais
                     throw new AnalisadorException("O token ; era esperado");
                 }
             }
+        }
+
+        private void For()
+        {
+
         }
     }
 }
