@@ -23,7 +23,8 @@ TipoVar ->
 	float |
 	byte
 
-Atribuicao -> id = Exp
+Atribuicao -> 
+	id = Exp
 
 Exp -> T R
 R -> || T R1
@@ -100,9 +101,11 @@ ListaAtribA ->
 Switch ->
 	switch ( Exp ) { ListaCase }
 ListaCase ->
-	case id : ListaComandos break; |
-	case id : ListaComandos |
+	case id : ListaComandos CaseEnd |
 	ListaCase |
+	{}
+CaseEnd ->
+	break; |
 	{}
 
 ListaFunc -> 

@@ -84,6 +84,12 @@ namespace LinguagensFormais
                 this.For();
             }
 
+            //switch
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["SWITCH"])
+            {
+                this.Switch();
+            }
+
             //atribuição
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             {
@@ -611,6 +617,64 @@ namespace LinguagensFormais
             }
         }
 
+        private void Switch()
+        {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["SWITCH"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
+                {
+                    throw new AnalisadorException("O token ( era esperado");
+                }
 
+                this.Exp();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+                {
+                    throw new AnalisadorException("O token ) era esperado");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABRECHAVES"])
+                {
+                    throw new AnalisadorException("O token { era esperado");
+                }
+
+                this.ListaCase();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
+                {
+                    throw new AnalisadorException("O token } era esperado");
+                }
+            }
+        }
+
+        private void ListaCase()
+        {
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["CASE"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                {
+                    throw new AnalisadorException("O token identificador era esperado");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["DOISPONTOS"])
+                {
+                    throw new AnalisadorException("O token : era esperado");
+                }
+
+                this.ListaComandos();
+
+                this.CaseEnd();
+            }
+        }
+
+        private void CaseEnd()
+        {
+
+        }
     }
 }
