@@ -24,5 +24,9 @@ if(1) {
 }
 
 while (true) {
-	a= 1;
+	a++;
 }
+
+do {
+	a--;
+} while (a == 1);
