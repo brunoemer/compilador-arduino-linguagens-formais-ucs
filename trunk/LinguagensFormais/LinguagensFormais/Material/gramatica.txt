@@ -90,11 +90,11 @@ ListaExpA ->
 
 [GLAUBER]
 For ->
-	for ( ListaExp; Exp; ListaExp ) { ListaComandos }
-ListaExp ->
-	Exp ListaExpA
-ListaExpA ->
-	, ListaExpA |
+	for ( ListaAtrib; Exp; ListaAtrib ) { ListaComandos }
+ListaAtrib ->
+	Exp ListaAtribA
+ListaAtribA ->
+	, ListaAtribA |
 	{}
 
 Switch ->
