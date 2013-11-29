@@ -459,6 +459,7 @@ namespace LinguagensFormais
                 else
                 {
                     this.If();
+                    //loop?
                 }
             }
             else
@@ -642,6 +643,8 @@ namespace LinguagensFormais
 
                 this.ListaCase();
 
+                this.SwitchDefault();
+
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
                 {
                     throw new AnalisadorException("O token } era esperado");
@@ -654,7 +657,7 @@ namespace LinguagensFormais
             AnalisadorLexico.Analisar();
             if (TokenManager.Instance.TokenCode == LexMap.Consts["CASE"])
             {
-                AnalisadorLexico.Analisar();
+                AnalisadorLexico.Analisar(); // erro ver?
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
                 {
                     throw new AnalisadorException("O token identificador era esperado");
@@ -669,12 +672,41 @@ namespace LinguagensFormais
                 this.ListaComandos();
 
                 this.CaseEnd();
+
+                this.ListaCase();
             }
+
         }
 
         private void CaseEnd()
         {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["BREAK"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                {
+                    throw new AnalisadorException("O token ; era esperado");
+                }
 
+            }
+        }
+
+        private void SwitchDefault()
+        {
+            //AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["DEFAULT"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["DOISPONTOS"])
+                {
+                    throw new AnalisadorException("O token : era esperado");
+                }
+
+                this.ListaComandos();
+
+                this.CaseEnd();
+
+            }
         }
     }
 }

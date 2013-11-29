@@ -99,13 +99,16 @@ ListaAtribA ->
 	{}
 
 Switch ->
-	switch ( Exp ) { ListaCase }
+	switch ( Exp ) { ListaCase SwitchDefault }
 ListaCase ->
 	case id : ListaComandos CaseEnd |
 	ListaCase |
 	{}
 CaseEnd ->
 	break; |
+	{}
+SwitchDefault ->
+	default: ListaComandos CaseEnd |
 	{}
 
 ListaFunc -> 
