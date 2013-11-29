@@ -49,6 +49,7 @@ namespace LinguagensFormais
         private void ListaComandos()
         {
             AnalisadorLexico.Analisar();
+
             //declaração
             if (TokenManager.Instance.TokenCode == LexMap.Consts["INTEIRO"] ||
                 TokenManager.Instance.TokenCode == LexMap.Consts["FLOAT"] ||
@@ -59,6 +60,19 @@ namespace LinguagensFormais
                 this.DeclaraVar();
             }
 
+            //if
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["IF"])
+            {
+                this.If();
+            }
+
+            //for
+
+
+            //while
+
+
+            //atribuição
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             {
                 AnalisadorLexico.Analisar();
@@ -68,11 +82,7 @@ namespace LinguagensFormais
                 }
             }
 
-            if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
-            {
-                throw new AnalisadorException("O Token ; era esperado");
-            }
-
+            //recursão
             try
             {
                 this.ListaComandos();
@@ -366,6 +376,74 @@ namespace LinguagensFormais
         public void Atribuicao()
         {
             this.Exp();
+
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+            {
+                throw new AnalisadorException("O Token ; era esperado");
+            }
+
         }
+
+        private void If()
+        {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["IF"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
+                {
+                    throw new AnalisadorException("O token ( era esperado");
+                }
+
+                this.Exp();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+                {
+                    throw new AnalisadorException("O token ) era esperado");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABRECHAVES"])
+                {
+                    throw new AnalisadorException("O token { era esperado");
+                }
+
+                this.ListaComandos();
+                // sem comandos esta com erro
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
+                {
+                    throw new AnalisadorException("O token } era esperado");
+                }
+
+                //this.IfEnd();
+            }
+        }
+
+        private void IfEnd()
+        {
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["ELSE"])
+            {
+                 AnalisadorLexico.Analisar();
+                 if (TokenManager.Instance.TokenCode == LexMap.Consts["ABRECHAVES"])
+                 {
+                     LineManager.Instance.ResetToLastPos();
+                     this.ListaComandos();
+
+                     AnalisadorLexico.Analisar();
+                     if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
+                     {
+                         throw new AnalisadorException("O token } era esperado");
+                     }
+                 }
+                 else
+                 {
+                     this.If();
+                 }
+            }
+            LineManager.Instance.ResetToLastPos();
+        }
+
     }
 }

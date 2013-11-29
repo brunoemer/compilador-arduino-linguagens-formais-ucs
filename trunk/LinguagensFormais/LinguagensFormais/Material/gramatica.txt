@@ -64,17 +64,14 @@ K ->
 	float |
 	id |
 	(E) |
-	funcao() [PRECISA DIFERENCIAR VOID DE OUTROS TIPOS?]
+	funcao() [PRECISA DIFERENCIAR VOID DE OUTROS TIPOS?] nao
 
 If ->
-	if ( Exp ) { ListaComandos IfEnd
+	if ( Exp ) { ListaComandos } IfEnd
 IfEnd ->
-	} else { ListaComandos } |
-	} else If |
-	}
-
-For ->
-	for ( ListaDec; ListaAtrib; ListaAtrib ) { ListaComandos }
+	else { ListaComandos } |
+	else If |
+	{}
 	
 While ->
 	while ( Exp ) { ListaComandos }
@@ -82,6 +79,9 @@ While ->
 DoWhile ->
 	do { ListaComandos } while ( Exp );
 
+For ->
+	for ( ListaDec; ListaAtrib; ListaAtrib ) { ListaComandos }
+	
 Switch ->
 	switch ( Exp ) { ListaCase }
 ListaCase ->
