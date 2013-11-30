@@ -1,4 +1,10 @@
-﻿ProgArduino -> ListaComandos
+﻿ProgArduino -> 
+	ListaProg
+
+ListaProg -> // falta implementar
+	ListaComandos |
+	DeclaraFuncao |
+	ListaProg
 
 ListaComandos ->
 	DeclaraVar |
@@ -7,7 +13,7 @@ ListaComandos ->
 	For |
 	While |
 	DoWhile |
-	ListaFunc |
+	Funcao |
 	ListaComandos
 
 DeclaraVar ->
@@ -111,15 +117,28 @@ SwitchDefault ->
 	default: ListaComandos CaseEnd |
 	{}
 
-ListaFunc -> 
-	TipoRetorno id ( ListaParm ) { ListaComandos Retorno }
-ListaParm ->
-	TipoVar id ListaParm |
-	, TipoVar id ListaParm |
-	{}
-Retorno ->
-	return Exp; |
-	{}
+DeclaraFuncao -> 
+	TipoRetorno id ( ListaDecParam ) { ListaComandos Retorno }
 TipoRetorno ->
 	TipoVar |
 	void
+ListaDecParam ->
+	TipoVar id ListaDecParamA |
+	{}
+ListaDecParamA ->
+	, ListaDecParam |
+	{}
+Retorno ->
+	return Exp; | // somente Exp?
+	{}
+
+Funcao ->
+	id ( ListaParam );
+ListaParam -> 
+	id ListaParamRec | 
+	Exp ListaParamRec | 
+	{}
+ListaParamRec -> 
+	, id ListaParamRec | 
+	, Exp ListaParamRec | 
+	{}
