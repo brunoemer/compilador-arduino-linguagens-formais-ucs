@@ -139,7 +139,7 @@ namespace LinguagensFormais
             {55, "Tk_Low"},
             {56, "Tk_Input"},
             {57, "Tk_Output"},
-            {57, "Tk_Void"},
+            {58, "Tk_Void"},
             {59, "Tk_Nao"},
             {61, "Tk_String"},
             {65, "Tk_Resto_Char"},
