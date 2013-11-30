@@ -1,7 +1,7 @@
 ﻿ProgArduino -> 
 	ListaProg
 
-ListaProg -> // falta implementar
+ListaProg ->
 	ListaComandos |
 	DeclaraFuncao |
 	ListaProg

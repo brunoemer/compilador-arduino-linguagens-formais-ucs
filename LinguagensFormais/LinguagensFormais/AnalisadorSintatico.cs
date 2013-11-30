@@ -127,6 +127,7 @@ namespace LinguagensFormais
             {
                 LineManager.Instance.ResetToLastPos();
                 this.TipoRetorno();
+                LineManager.Instance.ResetToLastPos();
                 return;
             }
             catch (AnalisadorException exc) { }
