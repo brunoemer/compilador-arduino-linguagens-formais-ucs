@@ -43,10 +43,16 @@ namespace LinguagensFormais
 
         private void ProgArduino()
         {
-            this.DeclaraFuncao(); // temporario
+            this.ListaProg();
+        }
+
+        private void ListaProg()
+        {
+            this.DeclaraFuncao();
 
             this.ListaComandos();
-            
+
+            this.ListaProg();
         }
 
         private void ListaComandos()
@@ -98,9 +104,6 @@ namespace LinguagensFormais
                 return;
             }
 
-            //funcao
-
-
             //atribuição
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             {
@@ -111,6 +114,22 @@ namespace LinguagensFormais
                     throw new AnalisadorException("O Token ; era esperado");
                 }
             }
+
+            //funcao
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
+            {
+                // retrocede, ver??
+                this.Funcao();
+            }
+
+            //verifica se é declaração de funcao
+            try
+            {
+                LineManager.Instance.ResetToLastPos();
+                this.TipoRetorno();
+                return;
+            }
+            catch (AnalisadorException exc) { }
 
             // fim de bloco
             if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
@@ -820,5 +839,9 @@ namespace LinguagensFormais
             }
         }
 
+        private void Funcao()
+        {
+
+        }
     }
 }

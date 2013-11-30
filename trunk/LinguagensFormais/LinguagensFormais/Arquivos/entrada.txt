@@ -1,6 +1,12 @@
 ﻿
-void loop(){
+int myMultiplyFunction(int x, int y){
+  int result;
+  result = x * y;
+  return result;
+}
 
+void loop(){
+	a = 1;
 }
 
 loop();
