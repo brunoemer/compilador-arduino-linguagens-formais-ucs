@@ -43,14 +43,17 @@ namespace LinguagensFormais
 
         private void ProgArduino()
         {
+            this.DeclaraFuncao(); // temporario
+
             this.ListaComandos();
+            
         }
 
         private void ListaComandos()
         {
             AnalisadorLexico.Analisar();
 
-            //declaração
+            //declaração variaveis
             if (TokenManager.Instance.TokenCode == LexMap.Consts["INTEIRO"] ||
                 TokenManager.Instance.TokenCode == LexMap.Consts["FLOAT"] ||
                 TokenManager.Instance.TokenCode == LexMap.Consts["BYTE"] ||
@@ -89,6 +92,14 @@ namespace LinguagensFormais
             {
                 this.Switch();
             }
+            //switch break
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["BREAK"])
+            {
+                return;
+            }
+
+            //funcao
+
 
             //atribuição
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
@@ -615,6 +626,10 @@ namespace LinguagensFormais
                 this.Atribuicao();
 
                 this.ListaAtribA();
+
+                // reducao?
+                //this.ListaAtrib();
+
             }
         }
 
@@ -657,8 +672,8 @@ namespace LinguagensFormais
             AnalisadorLexico.Analisar();
             if (TokenManager.Instance.TokenCode == LexMap.Consts["CASE"])
             {
-                AnalisadorLexico.Analisar(); // erro ver?
-                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"] && TokenManager.Instance.TokenCode != LexMap.Consts["CONSTINTEIRO"])
                 {
                     throw new AnalisadorException("O token identificador era esperado");
                 }
@@ -669,6 +684,8 @@ namespace LinguagensFormais
                     throw new AnalisadorException("O token : era esperado");
                 }
 
+                // retorna somente quando encontra }, feito gambiara para retornar quando tem break, quando nao tem ta com problema
+                // ??????
                 this.ListaComandos();
 
                 this.CaseEnd();
@@ -683,7 +700,7 @@ namespace LinguagensFormais
             if (TokenManager.Instance.TokenCode == LexMap.Consts["BREAK"])
             {
                 AnalisadorLexico.Analisar();
-                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
                 {
                     throw new AnalisadorException("O token ; era esperado");
                 }
@@ -693,7 +710,6 @@ namespace LinguagensFormais
 
         private void SwitchDefault()
         {
-            //AnalisadorLexico.Analisar();
             if (TokenManager.Instance.TokenCode == LexMap.Consts["DEFAULT"])
             {
                 AnalisadorLexico.Analisar();
@@ -708,5 +724,101 @@ namespace LinguagensFormais
 
             }
         }
+
+        private void DeclaraFuncao()
+        {
+            this.TipoRetorno();
+
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+            {
+                throw new AnalisadorException("O token identificador era esperado");
+            }
+
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
+            {
+                throw new AnalisadorException("O token ( era esperado");
+            }
+
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+            {
+                LineManager.Instance.ResetToLastPos();
+                this.ListaDecParam();
+            }
+
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+            {
+                throw new AnalisadorException("O token ) era esperado");
+            }
+
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ABRECHAVES"])
+            {
+                throw new AnalisadorException("O token { era esperado");
+            }
+
+            this.ListaComandos();
+
+            this.Retorno();
+
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
+            {
+                throw new AnalisadorException("O token } era esperado");
+            }
+        }
+
+        private void TipoRetorno()
+        {
+            try
+            {
+                this.TipoVar();
+            } 
+            catch (AnalisadorException exc)
+            {
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["VOID"])
+                {
+                    throw new AnalisadorException("Tipo de variável de função não pode ser identificado");
+                }
+            }
+        }
+
+        private void ListaDecParam()
+        {
+            this.TipoVar();
+
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+            {
+                throw new AnalisadorException("O token identificador era esperado");
+            }
+
+            this.ListaDecParamA();
+        }
+
+        private void ListaDecParamA()
+        {
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["VIRGULA"])
+            {
+                this.ListaDecParam();
+            }
+        }
+
+        private void Retorno()
+        {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["RETURN"])
+            {
+                // opcional?
+                this.Exp();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+                {
+                    throw new AnalisadorException("O token ; era esperado");
+                }
+            }
+        }
+
     }
 }

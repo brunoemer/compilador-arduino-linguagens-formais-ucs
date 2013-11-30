@@ -51,6 +51,7 @@ namespace LinguagensFormais
             {"LOW", 55},
             {"INPUT", 56},
             {"OUTPUT", 57},
+            {"VOID", 58},
             {"NAO", 59},
             {"STRING", 61},
             {"MODC", 65},
@@ -66,7 +67,7 @@ namespace LinguagensFormais
             {"VAZIO", 80},
             {"FUNCAO", 81},
             {"FIMFUNCAO", 82},
-            {"RETORNE", 83},
+            {"RETURN", 83},
             {"SWITCH", 84},
             {"CASE", 85},
             {"BREAK", 86},
@@ -79,6 +80,7 @@ namespace LinguagensFormais
             {"float", 46},
             {"long", 49},
             {"byte", 50},
+            {"void", 58},
             {"switch", 84},
             {"case", 85},
             {"break", 86},
@@ -93,7 +95,8 @@ namespace LinguagensFormais
             {"high", 54},
             {"low", 55},
             {"input", 56},
-            {"output", 57}
+            {"output", 57},
+            {"return", 83}
         };
 
         public static Dictionary<Int32, String> TokenNome = new Dictionary<Int32, String>()
@@ -136,6 +139,7 @@ namespace LinguagensFormais
             {55, "Tk_Low"},
             {56, "Tk_Input"},
             {57, "Tk_Output"},
+            {57, "Tk_Void"},
             {59, "Tk_Nao"},
             {61, "Tk_String"},
             {65, "Tk_Resto_Char"},
@@ -151,7 +155,7 @@ namespace LinguagensFormais
             {80, "Tk_Vazio"},
             {81, "Tk_Funcao"},
             {82, "Tk_FimFuncao"},
-            {83, "Tk_Retorne"},
+            {83, "Tk_Return"},
             {84, "Tk_Switch"},
             {85, "Tk_Case"},
             {86, "Tk_Break"},
