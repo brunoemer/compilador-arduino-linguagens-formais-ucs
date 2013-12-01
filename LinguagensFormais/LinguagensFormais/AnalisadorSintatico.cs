@@ -104,10 +104,18 @@ namespace LinguagensFormais
                 return;
             }
 
-            //atribuição
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             {
+                //atribuição
                 this.Atribuicao();
+
+                //funcao
+                if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
+                {
+                    //nao retrocedeu????
+                    LineManager.Instance.ResetToLastPos();
+                    this.Funcao();
+                }
 
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
                 {
@@ -115,14 +123,7 @@ namespace LinguagensFormais
                 }
             }
 
-            //funcao
-            if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
-            {
-                // retrocede, ver??
-                this.Funcao();
-            }
-
-            //verifica se é declaração de funcao
+            //verifica se é declaração de funcao, sai da lista de comandos
             try
             {
                 LineManager.Instance.ResetToLastPos();
@@ -758,6 +759,15 @@ namespace LinguagensFormais
             AnalisadorLexico.Analisar();
             if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
             {
+                //verifica se é declaração de variável, sai da DeclaraFuncao
+                if (TokenManager.Instance.TokenCode == LexMap.Consts["PONTOVIRGULA"] || TokenManager.Instance.TokenCode == LexMap.Consts["VIRGULA"])
+                {
+                    LineManager.Instance.ResetToLastPos();
+                    LineManager.Instance.ResetToLastPos();
+                    LineManager.Instance.ResetToLastPos();
+                    return;
+                }
+
                 throw new AnalisadorException("O token ( era esperado");
             }
 
@@ -842,7 +852,50 @@ namespace LinguagensFormais
 
         private void Funcao()
         {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
+                {
+                    throw new AnalisadorException("O token ( era esperado");
+                }
 
+                AnalisadorLexico.Analisar();
+                //se for sem parametro
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+                {
+                    LineManager.Instance.ResetToLastPos();
+                    this.ListaParam();
+                }
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+                {
+                    throw new AnalisadorException("O token ) era esperado");
+                }
+            }
+        }
+
+        private void ListaParam()
+        {
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+            {
+                this.Exp();
+            }
+            else
+            {
+                AnalisadorLexico.Analisar();
+            }
+
+            this.ListaParamRec();
+        }
+
+        private void ListaParamRec()
+        {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["VIRGULA"])
+            {
+                this.ListaParam();
+            }
         }
     }
 }

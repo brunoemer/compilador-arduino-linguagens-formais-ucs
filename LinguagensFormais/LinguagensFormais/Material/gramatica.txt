@@ -139,6 +139,5 @@ ListaParam ->
 	Exp ListaParamRec | 
 	{}
 ListaParamRec -> 
-	, id ListaParamRec | 
-	, Exp ListaParamRec | 
+	, ListaParam | 
 	{}
