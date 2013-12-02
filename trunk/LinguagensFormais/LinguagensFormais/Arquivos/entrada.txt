@@ -14,5 +14,11 @@ int aloca;
 
 if(a){
 	if(a){
+	
+	}else 
+	if(1){
+
 	}
 }
+
+int b;
