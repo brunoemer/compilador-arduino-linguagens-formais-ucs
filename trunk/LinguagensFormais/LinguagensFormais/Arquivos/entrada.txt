@@ -1,14 +1,18 @@
 ﻿int i, j, k, a;
 
+float a, x;
+
+byte abd;
+
 j = .5;
 
 i = 6 + 7 + (5 - 7 * (5 / 8));
 
-j = a || b > 8 < 7 <= 9.5 >= .09 || (~x) != 4 && (k == 2 && (~dfsad));
+j = a || b > 8 < 7 <= 9.5 >= .09 || (!x) != 4 && (k == 2 && (!dfsad));
 
-if (a > b + 5 != 4 && b) {
-	a=1;
-	if(a == output){
-		b = 3 + 7;
+int aloca;
+
+if(a){
+	if(a){
 	}
 }

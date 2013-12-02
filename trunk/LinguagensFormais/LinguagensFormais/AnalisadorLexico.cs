@@ -49,7 +49,11 @@ namespace LinguagensFormais
             }
             else
             {
-                throw new AnalisadorFimArquivoException("O reconhecedor encontrou uma sintaxe não finalizada" + Environment.NewLine + sb.ToString());
+                TokenManager.Instance.TokenCode = 0;
+                //TokenManager.Instance.TokenCodeAnt = 0;
+                TokenManager.Instance.TokenSymbol = "Provável fim de arquivo";
+                //TokenManager.Instance.TokenSymbolAnt = "Provável fim de arquivo";
+                //throw new AnalisadorFimArquivoException("O reconhecedor encontrou uma sintaxe não finalizada" + Environment.NewLine + sb.ToString());
             }
         }
 
@@ -397,7 +401,16 @@ namespace LinguagensFormais
                 }
                 else if (estado == LexMap.Consts["NAO"])
                 {
-                    TokenManager.Instance.TokenCode = LexMap.Consts["NAO"];
+                    if (c.Equals('=') && endofline == false)
+                    {
+                        TokenManager.Instance.TokenSymbol += c;
+                        LineManager.Instance.PosCurrentCaracter++;
+                        TokenManager.Instance.TokenCode = LexMap.Consts["DIFERENTE"];
+                    }
+                    else
+                    {
+                        TokenManager.Instance.TokenCode = LexMap.Consts["NAO"];
+                    }
 
                     return true;
                 }

@@ -257,7 +257,7 @@ namespace LinguagensFormais
             }
             else if (c == '!')
             {
-                return LexMap.Consts["DIFERENTE"];
+                return LexMap.Consts["NAO"];
             }
             else if (c == '&')
             {
@@ -266,10 +266,6 @@ namespace LinguagensFormais
             else if (c == '|')
             {
                 return LexMap.Consts["OU"];
-            }
-            else if (c == '~')
-            {
-                return LexMap.Consts["NAO"];
             }
 
             return 0;
