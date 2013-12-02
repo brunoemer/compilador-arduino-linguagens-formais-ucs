@@ -85,26 +85,28 @@ namespace LinguagensFormais
             {
                 this.While();
                 recur_flag = true;
-            }
+            } else
             
             //do while
             if (TokenManager.Instance.TokenCode == LexMap.Consts["DO"])
             {
                 this.DoWhile();
                 recur_flag = true;
-            }
+            } else 
 
-            /*
             //for
             if (TokenManager.Instance.TokenCode == LexMap.Consts["FOR"])
             {
                 this.For();
+                recur_flag = true;
             }
 
+            /*
             //switch
             if (TokenManager.Instance.TokenCode == LexMap.Consts["SWITCH"])
             {
                 this.Switch();
+                recur_flag = true;
             }
             //switch break
             if (TokenManager.Instance.TokenCode == LexMap.Consts["BREAK"])
@@ -126,6 +128,11 @@ namespace LinguagensFormais
                     this.Funcao();
                 }
                 */
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+                {
+                    throw new AnalisadorException("O Token ; era esperado");
+                }
             }
 
             //verifica se é declaração de funcao, sai da lista de comandos
@@ -142,7 +149,7 @@ namespace LinguagensFormais
             // fim de bloco
             /*if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
             {*/
-                //recursão
+            //recursão
             if (recur_flag == true)
             {
                 this.ListaComandos();
@@ -450,11 +457,6 @@ namespace LinguagensFormais
             {
                 this.Exp();
             }
-
-            if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
-            {
-                throw new AnalisadorException("O Token ; era esperado");
-            }
         }
 
         private void If()
@@ -518,7 +520,9 @@ namespace LinguagensFormais
             }
             else
             {
+                // nao retrocedeu em a na exprecao if(a){} a = j;
                 LineManager.Instance.ResetToLastPos();
+                // se nao retroceder da problema: if(a){} do{}while(x);
             }
         }
 

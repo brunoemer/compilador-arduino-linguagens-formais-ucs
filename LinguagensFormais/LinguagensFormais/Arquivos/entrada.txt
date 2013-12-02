@@ -12,12 +12,17 @@ j = a || b > 8 < 7 <= 9.5 >= .09 || (!x) != 4 && (k == 2 && (!dfsad));
 
 int aloca;
 
+if(1){
+
+}
+
 if(a){
 	if(a){
-	
+		int j;
 	}else if(1){
-
+		float x;
 	}
+
 }
 
 if(a){
@@ -29,7 +34,15 @@ if(a){
 }
 
 do {
+	if(b){
+		x = 1;
+	}
+} while (x);
 
-}while(a);
+for(i = 0; i < 5; i = i + 1){
+	if(x == 2){
+		a = 1;
+	}
+}
 
 int b;

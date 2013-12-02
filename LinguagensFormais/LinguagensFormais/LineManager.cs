@@ -57,7 +57,6 @@ namespace LinguagensFormais
 
         public void ResetToLastPos()
         {
-            //nao tem que pegar o token anterior?
             this.PosCurrentCaracter = this.PosStartToken;
             try
             {
