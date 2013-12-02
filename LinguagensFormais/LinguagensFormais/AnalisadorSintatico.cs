@@ -43,7 +43,7 @@ namespace LinguagensFormais
 
         private void ProgArduino()
         {
-            this.ListaProg();
+            this.ListaComandos();
         }
 
         private void ListaProg()
@@ -68,13 +68,13 @@ namespace LinguagensFormais
                 LineManager.Instance.ResetToLastPos();
                 this.DeclaraVar();
             }
-
+            
             //if
             if (TokenManager.Instance.TokenCode == LexMap.Consts["IF"])
             {
                 this.If();
             }
-
+            /*
             //while
             if (TokenManager.Instance.TokenCode == LexMap.Consts["WHILE"])
             {
@@ -103,12 +103,12 @@ namespace LinguagensFormais
             {
                 return;
             }
-
+            */
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             {
                 //atribuição
                 this.Atribuicao();
-
+                /*
                 //funcao
                 if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
                 {
@@ -116,7 +116,7 @@ namespace LinguagensFormais
                     LineManager.Instance.ResetToLastPos();
                     this.Funcao();
                 }
-
+                */
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
                 {
                     throw new AnalisadorException("O Token ; era esperado");
@@ -124,6 +124,7 @@ namespace LinguagensFormais
             }
 
             //verifica se é declaração de funcao, sai da lista de comandos
+            /*
             try
             {
                 LineManager.Instance.ResetToLastPos();
@@ -131,18 +132,18 @@ namespace LinguagensFormais
                 LineManager.Instance.ResetToLastPos();
                 return;
             }
-            catch (AnalisadorException exc) { }
+            catch (AnalisadorException exc) { }*/
 
             // fim de bloco
-            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
-            {
+            /*if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
+            {*/
                 //recursão
                 try
                 {
                     this.ListaComandos();
                 }
                 catch (AnalisadorFimArquivoException exc) { }
-            }
+            //}
         }
 
         private void DeclaraVar()
@@ -157,11 +158,6 @@ namespace LinguagensFormais
             }
 
             this.ListaVar();
-
-            if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
-            {
-                throw new AnalisadorException("O token ; era esperado.");
-            }
         }
 
         public void TipoVar()

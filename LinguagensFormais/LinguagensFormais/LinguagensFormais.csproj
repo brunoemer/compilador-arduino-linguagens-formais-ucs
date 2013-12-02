@@ -79,6 +79,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Arquivos\entrada_hades.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Arquivos\entrada.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
