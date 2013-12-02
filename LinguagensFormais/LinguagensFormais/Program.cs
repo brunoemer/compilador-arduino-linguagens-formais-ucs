@@ -50,7 +50,7 @@ namespace LinguagensFormais
                 Console.WriteLine("------------");
                 Console.WriteLine();
             }
-            /*catch (Exception e)
+           /* catch (Exception e)
             {
                 Console.WriteLine();
                 Console.WriteLine("---MEMORIA---");

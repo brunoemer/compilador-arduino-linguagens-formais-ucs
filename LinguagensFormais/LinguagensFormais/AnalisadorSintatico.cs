@@ -28,14 +28,15 @@ namespace LinguagensFormais
             */
             if (LineManager.Instance.ReadLine())
             {
-                try
+                /*try
                 {
                     this.ProgArduino();
                 }
-                catch (AnalisadorFimArquivoException)
+                catch (AnalisadorFimArquivoException exc)
                 {
-                    return "";
-                }
+                    return exc.Message;
+                }*/
+                this.ProgArduino();
             }
 
             return "";
@@ -57,6 +58,8 @@ namespace LinguagensFormais
 
         private void ListaComandos()
         {
+            bool recur_flag = false;
+
             AnalisadorLexico.Analisar();
 
             //declaração variaveis
@@ -67,20 +70,23 @@ namespace LinguagensFormais
             {
                 LineManager.Instance.ResetToLastPos();
                 this.DeclaraVar();
-            }
+                recur_flag = true;
+            } else
             
             //if
             if (TokenManager.Instance.TokenCode == LexMap.Consts["IF"])
             {
                 this.If();
-            }
-            /*
+                recur_flag = true;
+            } else
+            
             //while
             if (TokenManager.Instance.TokenCode == LexMap.Consts["WHILE"])
             {
                 this.While();
+                recur_flag = true;
             }
-
+            /*
             //do while
             if (TokenManager.Instance.TokenCode == LexMap.Consts["DO"])
             {
@@ -108,6 +114,7 @@ namespace LinguagensFormais
             {
                 //atribuição
                 this.Atribuicao();
+                recur_flag = true;
                 /*
                 //funcao
                 if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
@@ -117,10 +124,6 @@ namespace LinguagensFormais
                     this.Funcao();
                 }
                 */
-                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
-                {
-                    throw new AnalisadorException("O Token ; era esperado");
-                }
             }
 
             //verifica se é declaração de funcao, sai da lista de comandos
@@ -138,11 +141,16 @@ namespace LinguagensFormais
             /*if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
             {*/
                 //recursão
+            if (recur_flag == true)
+            {
+                this.ListaComandos();
+            }
+            /*
                 try
                 {
                     this.ListaComandos();
                 }
-                catch (AnalisadorFimArquivoException exc) { }
+                catch (AnalisadorFimArquivoException exc) { }*/
             //}
         }
 
@@ -158,6 +166,11 @@ namespace LinguagensFormais
             }
 
             this.ListaVar();
+
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+            {
+                throw new AnalisadorException("O Token ; era esperado.");
+            }
         }
 
         public void TipoVar()
@@ -191,6 +204,8 @@ namespace LinguagensFormais
                 }
             }
         }
+
+        #region Expressao
 
         public void Exp()
         {
@@ -424,6 +439,8 @@ namespace LinguagensFormais
             throw new AnalisadorException("O valor da expressão (K) não é válido");
         }
 
+        #endregion Expressao
+
         public void Atribuicao()
         {
             AnalisadorLexico.Analisar();
@@ -432,12 +449,17 @@ namespace LinguagensFormais
                 this.Exp();
             }
 
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+            {
+                throw new AnalisadorException("O Token ; era esperado");
+            }
         }
 
         private void If()
         {
             if (TokenManager.Instance.TokenCode == LexMap.Consts["IF"])
             {
+                
                 AnalisadorLexico.Analisar();
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
                 {
@@ -445,25 +467,26 @@ namespace LinguagensFormais
                 }
 
                 this.Exp();
-
+                
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
                 {
                     throw new AnalisadorException("O token ) era esperado");
                 }
-
+                
                 AnalisadorLexico.Analisar();
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["ABRECHAVES"])
                 {
                     throw new AnalisadorException("O token { era esperado");
                 }
-
+                
                 this.ListaComandos();
 
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
                 {
                     throw new AnalisadorException("O token } era esperado");
                 }
-
+                /*
+                AnalisadorLexico.Analisar();*/
                 this.IfEnd();
             }
         }
@@ -476,7 +499,6 @@ namespace LinguagensFormais
                 AnalisadorLexico.Analisar();
                 if (TokenManager.Instance.TokenCode == LexMap.Consts["ABRECHAVES"])
                 {
-                    LineManager.Instance.ResetToLastPos();
                     this.ListaComandos();
 
                     if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
@@ -484,16 +506,19 @@ namespace LinguagensFormais
                         throw new AnalisadorException("O token } era esperado");
                     }
                 }
-                else
+                else if (TokenManager.Instance.TokenCode == LexMap.Consts["IF"])
                 {
                     this.If();
-                    //loop?
+                }
+                else
+                {
+                    throw new AnalisadorException("O token ( ou if era esperado");
                 }
             }
             else
             {
-                //retrocede?
-                //LineManager.Instance.ResetToLastPos();
+                LineManager.Instance.ResetToLastPos();
+                AnalisadorLexico.Analisar();
             }
         }
 
