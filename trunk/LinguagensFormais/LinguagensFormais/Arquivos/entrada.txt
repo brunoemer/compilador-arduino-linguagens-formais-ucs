@@ -1,39 +1,4 @@
-﻿
-void loop(){
-
-}
-
-myMultiplyFunction(1, a);
-
-int myMultiplyFunction(int x, int y){
-  int result;
-  result = x * y;
-  return result;
-}
-
-switch (a) {
-   case 1:
-	  if(1){
-		a = 1;
-	  }
-   break;
-   case 2: a = 2; break;
-   default: a = 3;
-}
-
-for (i=0,j=0; i<5 && j>10; i=2){
-	a = 4;
-}
-
-do {
-	a=2;
-} while (a == 1);
-
-while (true) {
-	a=1;
-}
-
-int i, j, k, a;
+﻿int i, j, k, a;
 
 j = .5;
 
@@ -46,12 +11,4 @@ if (a > b + 5 != 4 && b) {
 	if(a == output){
 		b = 3 + 7;
 	}
-}
-
-if(1) {
-	a=1;
-} else if(1) {
-	a=1;
-} else {
-	a=1;
 }
