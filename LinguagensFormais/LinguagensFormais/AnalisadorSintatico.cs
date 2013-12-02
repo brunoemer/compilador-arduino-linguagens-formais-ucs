@@ -485,9 +485,8 @@ namespace LinguagensFormais
                 {
                     throw new AnalisadorException("O token } era esperado");
                 }
-                /*
-                AnalisadorLexico.Analisar();*/
-                //this.IfEnd();
+
+                this.IfEnd();
             }
         }
 
@@ -517,8 +516,9 @@ namespace LinguagensFormais
             }
             else
             {
+                //retrocede se tiver 2 ifs
                 LineManager.Instance.ResetToLastPos();
-                AnalisadorLexico.Analisar();
+                //AnalisadorLexico.Analisar();
             }
         }
 
