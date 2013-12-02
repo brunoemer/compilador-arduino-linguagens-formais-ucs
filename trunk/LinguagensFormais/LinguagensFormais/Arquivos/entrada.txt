@@ -15,10 +15,21 @@ int aloca;
 if(a){
 	if(a){
 	
-	}else 
-	if(1){
+	}else if(1){
 
 	}
 }
+
+if(a){
+	while(a){
+		if(a){
+			a = 2;
+		}
+	}
+}
+
+do {
+
+}while(a);
 
 int b;

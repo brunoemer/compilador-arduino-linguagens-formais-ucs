@@ -86,13 +86,15 @@ namespace LinguagensFormais
                 this.While();
                 recur_flag = true;
             }
-            /*
+            
             //do while
             if (TokenManager.Instance.TokenCode == LexMap.Consts["DO"])
             {
                 this.DoWhile();
+                recur_flag = true;
             }
 
+            /*
             //for
             if (TokenManager.Instance.TokenCode == LexMap.Consts["FOR"])
             {
@@ -516,9 +518,7 @@ namespace LinguagensFormais
             }
             else
             {
-                //retrocede se tiver 2 ifs
                 LineManager.Instance.ResetToLastPos();
-                //AnalisadorLexico.Analisar();
             }
         }
 
