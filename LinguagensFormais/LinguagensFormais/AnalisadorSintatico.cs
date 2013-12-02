@@ -487,7 +487,7 @@ namespace LinguagensFormais
                 }
                 /*
                 AnalisadorLexico.Analisar();*/
-                this.IfEnd();
+                //this.IfEnd();
             }
         }
 
