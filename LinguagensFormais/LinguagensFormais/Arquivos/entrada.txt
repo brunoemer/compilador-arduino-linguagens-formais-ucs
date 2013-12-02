@@ -16,6 +16,8 @@ if(1){
 
 }
 
+i = x;
+
 if(a){
 	if(a){
 		int j;
@@ -31,6 +33,7 @@ if(a){
 			a = 2;
 		}
 	}
+	i = 5;
 }
 
 do {
@@ -39,10 +42,13 @@ do {
 	}
 } while (x);
 
-for(i = 0; i < 5; i = i + 1){
+for(i = 0; i < 5; i = j){
 	if(x == 2){
 		a = 1;
 	}
 }
+
+funcao();
+funcao2(a, b);
 
 int b;
