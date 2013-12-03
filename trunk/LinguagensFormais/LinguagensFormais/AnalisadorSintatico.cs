@@ -269,15 +269,40 @@ namespace LinguagensFormais
                 throw new AnalisadorException("O token { era esperado.");
             }
 
-            //precisa incluir o lista comandos
+            this.ListaComandos();
 
-            AnalisadorLexico.Analisar();
+            this.Retorno();
+
+            //AnalisadorLexico.Analisar();
             if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
             {
                 throw new AnalisadorException("O token } era esperado.");
             }
         }
 
+        private void Retorno()
+        {
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["RETURN"])
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode == LexMap.Consts["PONTOVIRGULA"])
+                {
+                    AnalisadorLexico.Analisar();
+                    return;
+                }
+                else
+                {
+                    LineManager.Instance.ResetToLastPos();
+                    this.Exp();
+                    if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+                    {
+                        throw new AnalisadorException("O token ; era esperado.");
+                    }
+                    AnalisadorLexico.Analisar();
+                }
+            }
+        }
+        
         /*
             ListaDecParm -> TipoVar id ListaDecParmB | {}
             ListaDecParmB -> , TipoVar id ListaDecParmB | {}

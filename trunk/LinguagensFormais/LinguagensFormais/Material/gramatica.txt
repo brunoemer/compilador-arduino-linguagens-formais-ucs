@@ -18,7 +18,8 @@ ListaComandos ->
 
 Declaracao -> TipoVar id DecB | void id ( DecC
 DecB -> ; | , id ListaVar | ( DecC
-DecC -> (ListaDecParm) {ListaComandos Retorno}
+DecC -> (ListaDecParm) { ListaComandos Retorno }
+Retorno -> return Exp ; | {}
 
 ListaDecParm -> TipoVar id ListaDecParmB | {}
 ListaDecParmB -> , TipoVar id ListaDecParmB | {}
