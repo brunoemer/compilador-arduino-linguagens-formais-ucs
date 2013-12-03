@@ -53,4 +53,11 @@ int w;
 a = 8;
 int x(int a, int x){}
 
-void testefuncao(float kgb){}
+void testefuncao(float kgb, byte carro){
+	int a, b, c;
+	if(1){
+		a = 5;
+	}
+
+	return (k + 8 * 9 + (a / b));
+}
