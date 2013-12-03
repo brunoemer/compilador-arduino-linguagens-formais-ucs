@@ -18,7 +18,10 @@ ListaComandos ->
 
 Declaracao -> TipoVar id DecB | void id ( DecC
 DecB -> ; | , id ListaVar | ( DecC
-DecC -> (ListaParm) {ListaComandos}
+DecC -> (ListaDecParm) {ListaComandos Retorno}
+
+ListaDecParm -> TipoVar id ListaDecParmB | {}
+ListaDecParmB -> , TipoVar id ListaDecParmB | {}
 
 ListaVar -> 
 	, id ListaVar |
@@ -121,8 +124,6 @@ SwitchDefault ->
 	default: ListaComandos CaseEnd |
 	{}
 
-DeclaraFuncao -> 
-	TipoRetorno id ( ListaDecParam ) { ListaComandos Retorno }
 TipoRetorno ->
 	TipoVar |
 	void
