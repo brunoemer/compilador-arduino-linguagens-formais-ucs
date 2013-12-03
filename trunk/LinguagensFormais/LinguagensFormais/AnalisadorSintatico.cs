@@ -66,10 +66,12 @@ namespace LinguagensFormais
             if (TokenManager.Instance.TokenCode == LexMap.Consts["INTEIRO"] ||
                 TokenManager.Instance.TokenCode == LexMap.Consts["FLOAT"] ||
                 TokenManager.Instance.TokenCode == LexMap.Consts["BYTE"] ||
-                TokenManager.Instance.TokenCode == LexMap.Consts["LONG"])
+                TokenManager.Instance.TokenCode == LexMap.Consts["LONG"] ||
+                TokenManager.Instance.TokenCode == LexMap.Consts["VOID"])
             {
                 LineManager.Instance.ResetToLastPos();
-                this.DeclaraVar();
+                //this.DeclaraVar();
+                this.Declaracao();
                 recur_flag = true;
 
                 //declaracao de funcao
@@ -163,6 +165,116 @@ namespace LinguagensFormais
                 }
                 catch (AnalisadorFimArquivoException exc) { }*/
             //}
+        }
+
+        /*
+        Declaracao -> TipoVar id DecB | void id ( DecC
+        DecB -> ; | , id ListaVar ; | ( DecC
+        DecC -> ListaParm) {ListaComandos}
+        */
+        private void Declaracao()
+        {
+            int gramatica = 0;
+            try
+            {
+                this.TipoVar();
+            }
+            catch (AnalisadorException) //o tipo ainda pode ser void
+            {
+                gramatica = 1;
+            }
+
+            if (gramatica == 0)
+            {
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                {
+                    throw new AnalisadorException("Um identificador era esperado.");
+                }
+
+                this.DecB();
+            }
+            else
+            {
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["VOID"])
+                {
+                    throw new AnalisadorException("Tipo de variável não pode ser identificado.");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                {
+                    throw new AnalisadorException("Um identificador era esperado.");
+                }
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
+                {
+                    throw new AnalisadorException("O token ( era esperado.");
+                }
+
+                this.DecC();
+            }
+        }
+
+        private void DecB()
+        {
+            AnalisadorLexico.Analisar();
+
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["PONTOVIRGULA"])
+            {
+                return;
+            }
+            else if (TokenManager.Instance.TokenCode == LexMap.Consts["VIRGULA"])
+            {
+                AnalisadorLexico.Analisar();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                {
+                    throw new AnalisadorException("Um identificador era esperado.");
+                }
+
+                this.ListaVar();
+
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+                {
+                    throw new AnalisadorException("O Token ; era esperado.");
+                }
+            }
+            else if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
+            {
+                this.DecC();
+            }
+            else
+            {
+                throw new AnalisadorException("O token ; , ( era esperado.");
+            }
+        }
+
+        private void DecC()
+        {
+            AnalisadorLexico.Analisar();
+
+            //precisa incluir o lista parametro
+
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+            {
+                throw new AnalisadorException("O token ) era esperado.");
+            }
+
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ABRECHAVES"])
+            {
+                throw new AnalisadorException("O token { era esperado.");
+            }
+
+            //precisa incluir o lista comandos
+
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHACHAVES"])
+            {
+                throw new AnalisadorException("O token } era esperado.");
+            }
         }
 
         private void DeclaraVar()

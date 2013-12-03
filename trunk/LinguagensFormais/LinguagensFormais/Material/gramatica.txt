@@ -7,7 +7,7 @@ ListaProg ->
 	ListaProg
 
 ListaComandos ->
-	DeclaraVar |
+	Declaracao |
 	Atribuicao |
 	If |
 	For |
@@ -16,12 +16,16 @@ ListaComandos ->
 	Funcao |
 	ListaComandos
 
-DeclaraVar ->
-	TipoVar id ListaVar;
+Declaracao -> TipoVar id DecB | void id ( DecC
+DecB -> ; | , id ListaVar | ( DecC
+DecC -> (ListaParm) {ListaComandos}
 
 ListaVar -> 
 	, id ListaVar |
 	{}
+
+DeclaraVar ->
+	TipoVar id ListaVar;
 
 TipoVar ->
 	int |

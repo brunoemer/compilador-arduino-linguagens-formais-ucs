@@ -48,7 +48,9 @@ for(i = 0; i < 5; i = j){
 	}
 }
 
-funcao();
-funcao2(a, b);
+int w;
 
-int b;
+a = 8;
+int x(){}
+
+void testefuncao(){}
