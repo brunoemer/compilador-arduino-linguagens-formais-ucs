@@ -51,6 +51,6 @@ for(i = 0; i < 5; i = j){
 int w;
 
 a = 8;
-int x(){}
+int x(int a, int x){}
 
-void testefuncao(){}
+void testefuncao(float kgb){}

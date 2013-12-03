@@ -49,7 +49,7 @@ namespace LinguagensFormais
 
         private void ListaProg()
         {
-            this.DeclaraFuncao();
+            //this.DeclaraFuncao();
 
             this.ListaComandos();
 
@@ -126,12 +126,13 @@ namespace LinguagensFormais
                 recur_flag = true;
                 
                 //funcao
+                /*
                 if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
                 {
                     //LineManager.Instance.ResetToLastPos();
                     this.Funcao(); // ainda nao reconhece inteiros: funcao(1, 2)
                     AnalisadorLexico.Analisar();
-                }
+                }*/
                 
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
                 {
@@ -253,9 +254,9 @@ namespace LinguagensFormais
 
         private void DecC()
         {
-            AnalisadorLexico.Analisar();
+            //AnalisadorLexico.Analisar();
 
-            //precisa incluir o lista parametro
+            this.ListaDecParm();
 
             if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
             {
@@ -277,6 +278,49 @@ namespace LinguagensFormais
             }
         }
 
+        /*
+            ListaDecParm -> TipoVar id ListaDecParmB | {}
+            ListaDecParmB -> , TipoVar id ListaDecParmB | {}
+         */
+        private void ListaDecParm()
+        {
+            try
+            {
+                this.TipoVar();
+            }
+            catch (AnalisadorException) {
+                //vazio
+                return;
+            }
+
+            //se TipoVar não causou uma exception, então estou dando parse nos parametros
+
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+            {
+                throw new AnalisadorException("Um identificador era esperado");
+            }
+
+            this.ListaDecParmB();
+        }
+
+        private void ListaDecParmB()
+        {
+            AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["VIRGULA"])
+            {
+                this.TipoVar();
+
+                AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                {
+                    throw new AnalisadorException("Um identificador era esperado");
+                }
+
+                this.ListaDecParmB();
+            }
+        }
+
         private void DeclaraVar()
         {
             this.TipoVar();
@@ -285,7 +329,7 @@ namespace LinguagensFormais
 
             if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
             {
-                throw new AnalisadorException("Um identificador era esperado.");
+                throw new AnalisadorException("Um identificador era esperado");
             }
 
             this.ListaVar();
@@ -882,6 +926,7 @@ namespace LinguagensFormais
             }
         }
 
+        /*
         private void DeclaraFuncao()
         {
             this.TipoRetorno();
@@ -950,6 +995,7 @@ namespace LinguagensFormais
             }
         }
 
+        
         private void ListaDecParam()
         {
             this.TipoVar();
@@ -971,7 +1017,7 @@ namespace LinguagensFormais
                 this.ListaDecParam();
             }
         }
-
+        
         private void Retorno()
         {
             if (TokenManager.Instance.TokenCode == LexMap.Consts["RETURN"])
@@ -1010,7 +1056,7 @@ namespace LinguagensFormais
                 }
             //}
         }
-
+        */
         private void ListaParam()
         {
             AnalisadorLexico.Analisar();
