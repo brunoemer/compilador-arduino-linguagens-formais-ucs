@@ -64,10 +64,22 @@ void testefuncao(float kgb, byte carro){
 
 testefuncao(1);
 
-teste2(3, 4 + 2, a);
+teste2(3, (4 + 2), a);
 
 int testefuncao(){
 	teste2(x);
 }
 
 a = teste();
+a = teste() + (x - 1);
+a = (teste(1, 2) * 2);
+
+teste();
+
+void function(){
+	void function2(){
+
+	}
+}
+
+end = fim;
