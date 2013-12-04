@@ -109,7 +109,8 @@ namespace LinguagensFormais
             {
                 this.Switch();
                 recur_flag = true;
-            }
+            } else
+            
             //switch break
             if (TokenManager.Instance.TokenCode == LexMap.Consts["BREAK"])
             {
@@ -125,7 +126,7 @@ namespace LinguagensFormais
                 //funcao
                 if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
                 {
-                    //LineManager.Instance.ResetToLastPos();
+                    //LineManager.Instance.ResetToLastPos(); // nao retrocede por causa da Atribuicao
                     this.Funcao();
                     AnalisadorLexico.Analisar();
                 }
@@ -622,8 +623,6 @@ namespace LinguagensFormais
 
                 return;
             }
-
-            // falta adicionar chamada de funcao
 
             if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
             {

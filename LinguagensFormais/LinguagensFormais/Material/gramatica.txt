@@ -102,6 +102,15 @@ ListaAtribA ->
 	, Atribuicao ListaAtribA |
 	{}
 
+Funcao ->
+	id ( ListaParam );
+ListaParam -> 
+	Exp ListaParamRec | 
+	{}
+ListaParamRec -> 
+	, Exp ListaParamRec | 
+	{}
+	
 Switch ->
 	switch ( Exp ) { ListaCase SwitchDefault }
 ListaCase ->
@@ -113,26 +122,4 @@ CaseEnd ->
 	{}
 SwitchDefault ->
 	default: ListaComandos CaseEnd |
-	{}
-
-TipoRetorno ->
-	TipoVar |
-	void
-ListaDecParam ->
-	TipoVar id ListaDecParamA |
-	{}
-ListaDecParamA ->
-	, ListaDecParam |
-	{}
-Retorno ->
-	return Exp; | // somente Exp?
-	{}
-
-Funcao ->
-	id ( ListaParam );
-ListaParam -> 
-	Exp ListaParamRec | 
-	{}
-ListaParamRec -> 
-	, Exp ListaParamRec | 
 	{}
