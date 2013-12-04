@@ -79,7 +79,7 @@ K ->
 	float |
 	id |
 	(E) |
-	funcao() [PRECISA DIFERENCIAR VOID DE OUTROS TIPOS?] nao
+	funcao()
 
 If ->
 	if ( Exp ) { ListaComandos } IfEnd
@@ -94,22 +94,12 @@ While ->
 DoWhile ->
 	do { ListaComandos } while ( Exp );
 
-[BRUNO]
 For ->
 	for ( ListaAtrib; Exp; ListaAtrib ) { ListaComandos }
 ListaAtrib ->
 	Atribuicao ListaAtribA
 ListaAtribA ->
 	, Atribuicao ListaAtribA |
-	{}
-
-[GLAUBER]
-For ->
-	for ( ListaAtrib; Exp; ListaAtrib ) { ListaComandos }
-ListaAtrib ->
-	Exp ListaAtribA
-ListaAtribA ->
-	, ListaAtribA |
 	{}
 
 Switch ->
@@ -141,9 +131,8 @@ Retorno ->
 Funcao ->
 	id ( ListaParam );
 ListaParam -> 
-	id ListaParamRec | 
 	Exp ListaParamRec | 
 	{}
 ListaParamRec -> 
-	, ListaParam | 
+	, Exp ListaParamRec | 
 	{}
