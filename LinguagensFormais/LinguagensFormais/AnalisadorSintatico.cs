@@ -1069,6 +1069,8 @@ namespace LinguagensFormais
 
         private void Funcao()
         {
+            // falta fazer: id.id ( ListaParam  );
+
             //if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             //{
             //    AnalisadorLexico.Analisar();

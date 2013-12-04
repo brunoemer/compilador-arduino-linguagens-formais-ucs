@@ -104,6 +104,7 @@ ListaAtribA ->
 
 Funcao ->
 	id ( ListaParam );
+	id.id ( ListaParam  );
 ListaParam -> 
 	Exp ListaParamRec | 
 	{}
