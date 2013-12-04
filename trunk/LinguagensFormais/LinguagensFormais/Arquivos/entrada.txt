@@ -50,8 +50,6 @@ for(i = 0; i < 5; i = j){
 
 int w;
 
-testefuncao(a);
-
 a = 8;
 int x(int a, int x){}
 
@@ -63,3 +61,13 @@ void testefuncao(float kgb, byte carro){
 
 	return (k + 8 * 9 + (a / b));
 }
+
+testefuncao(1);
+
+teste2(3, 4 + 2, a);
+
+int testefuncao(){
+	teste2(x);
+}
+
+a = teste();
