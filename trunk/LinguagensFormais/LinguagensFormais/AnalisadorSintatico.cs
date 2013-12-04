@@ -126,13 +126,12 @@ namespace LinguagensFormais
                 recur_flag = true;
                 
                 //funcao
-                /*
                 if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
                 {
                     //LineManager.Instance.ResetToLastPos();
                     this.Funcao(); // ainda nao reconhece inteiros: funcao(1, 2)
                     AnalisadorLexico.Analisar();
-                }*/
+                }
                 
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
                 {
@@ -1056,32 +1055,33 @@ namespace LinguagensFormais
                 }
             }
         }
+*/
 
         private void Funcao()
         {
             //if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             //{
-                //AnalisadorLexico.Analisar();
-                if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
-                {
-                    throw new AnalisadorException("O token ( era esperado");
-                }
+            //AnalisadorLexico.Analisar();
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
+            {
+                throw new AnalisadorException("O token ( era esperado");
+            }
 
-                AnalisadorLexico.Analisar();
-                //se for sem parametro
-                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
-                {
-                    LineManager.Instance.ResetToLastPos();
-                    this.ListaParam();
-                }
+            AnalisadorLexico.Analisar();
+            //se for sem parametro
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+            {
+                LineManager.Instance.ResetToLastPos();
+                this.ListaParam();
+            }
 
-                if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
-                {
-                    throw new AnalisadorException("O token ) era esperado");
-                }
+            if (TokenManager.Instance.TokenCode != LexMap.Consts["FECHAPAR"])
+            {
+                throw new AnalisadorException("O token ) era esperado");
+            }
             //}
         }
-        */
+        
         private void ListaParam()
         {
             AnalisadorLexico.Analisar();

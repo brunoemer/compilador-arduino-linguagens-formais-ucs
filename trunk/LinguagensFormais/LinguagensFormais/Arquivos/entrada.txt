@@ -50,6 +50,8 @@ for(i = 0; i < 5; i = j){
 
 int w;
 
+testefuncao(a);
+
 a = 8;
 int x(int a, int x){}
 
