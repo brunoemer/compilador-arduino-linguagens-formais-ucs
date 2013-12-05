@@ -172,52 +172,53 @@ void loop() {
   delay(1);
 }
 
-int sensorMin = 1023;  // minimum sensor value
-int sensorMax = 0;     // maximum sensor value
-int sensorValue = 0;         // the sensor value
+sensorMin = 1023;
+sensorMax = 0;
+sensorValue = 0;
 void setup() {
-  // set the LED pins as outputs and the switch pin as input:
   pinMode(indicatorLedPin, OUTPUT);
   pinMode (ledPin, OUTPUT);
   pinMode (buttonPin, INPUT);
 }
 void loop() {
-  // while the button is pressed, take calibration readings:
   while (digitalRead(buttonPin) == HIGH) {
-    calibrate(); 
+    calibrate();
   }
-  // signal the end of the calibration period
-  digitalWrite(indicatorLedPin, LOW);  
-
-  // read the sensor:
+  digitalWrite(indicatorLedPin, LOW);
   sensorValue = analogRead(sensorPin);
-
-  // apply the calibration to the sensor reading
   sensorValue = map(sensorValue, sensorMin, sensorMax, 0, 255);
-
-  // in case the sensor value is outside the range seen during calibration
   sensorValue = constrain(sensorValue, 0, 255);
-
-  // fade the LED using the calibrated value:
   analogWrite(ledPin, sensorValue);
 }
 void calibrate() {
-  // turn on the indicator LED to indicate that calibration is happening:
   digitalWrite(indicatorLedPin, HIGH);
-  // read the sensor:
   sensorValue = analogRead(sensorPin);
-
-  // record the maximum sensor value
   if (sensorValue > sensorMax) {
     sensorMax = sensorValue;
   }
-
-  // record the minimum sensor value
   if (sensorValue < sensorMin) {
     sensorMin = sensorValue;
   }
 }
 
+timer = 100;
+void setup() {
+  for (thisPin = 2; thisPin < 8; thisPin=thisPin + 1)  {
+    pinMode(thisPin, OUTPUT);
+  }
+}
+void loop() {
+  for (thisPin = 2; thisPin < 8; thisPin=thisPin + 1) {
+    digitalWrite(thisPin, HIGH);
+    delay(timer);
+    digitalWrite(thisPin, LOW);
+  }
+  for (thisPin = 7; thisPin >= 2; thisPin=thisPin + 1) {
+    digitalWrite(thisPin, HIGH);
+    delay(timer);
+    digitalWrite(thisPin, LOW);
+  }
+}
 
 
 end = fim;
