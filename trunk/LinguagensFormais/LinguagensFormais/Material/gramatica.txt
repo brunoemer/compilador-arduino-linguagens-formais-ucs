@@ -115,12 +115,12 @@ ListaParamRec ->
 Switch ->
 	switch ( Exp ) { ListaCase SwitchDefault }
 ListaCase ->
-	case id : ListaComandos CaseEnd |
+	case const_int : { ListaComandos CaseEnd |
 	ListaCase |
 	{}
 CaseEnd ->
-	break; |
-	{}
+	} break; |
+	}
 SwitchDefault ->
-	default: ListaComandos CaseEnd |
+	default: { ListaComandos CaseEnd |
 	{}
