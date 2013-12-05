@@ -117,7 +117,7 @@ namespace LinguagensFormais
                 recur_flag = true;
                 
                 //funcao
-                if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
+                if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"] || TokenManager.Instance.TokenCode == LexMap.Consts["PONTO"])
                 {
                     //LineManager.Instance.ResetToLastPos(); // nao retrocede por causa da Atribuicao
                     this.Funcao();
@@ -583,7 +583,7 @@ namespace LinguagensFormais
                 if (tkc == LexMap.Consts["ID"])
                 {
                     AnalisadorLexico.Analisar();
-                    if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"])
+                    if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"] || TokenManager.Instance.TokenCode == LexMap.Consts["PONTO"])
                     {
                         this.Funcao();
                     }
@@ -965,12 +965,20 @@ namespace LinguagensFormais
 
         private void Funcao()
         {
-            // falta fazer:
-            // id.id ( ListaParam  );
-
             //if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
             //{
             //    AnalisadorLexico.Analisar();
+                if (TokenManager.Instance.TokenCode == LexMap.Consts["PONTO"])
+                {
+                    AnalisadorLexico.Analisar();
+                    if (TokenManager.Instance.TokenCode != LexMap.Consts["ID"])
+                    {
+                        throw new AnalisadorException("O token id era esperado, id.id()");
+                    }
+
+                    AnalisadorLexico.Analisar();
+                }
+
                 if (TokenManager.Instance.TokenCode != LexMap.Consts["ABREPAR"])
                 {
                     throw new AnalisadorException("O token ( era esperado");
