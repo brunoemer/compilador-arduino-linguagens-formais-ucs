@@ -10,32 +10,8 @@ namespace LinguagensFormais
     {
         public String Execute()
         {
-            /*
             if (LineManager.Instance.ReadLine())
             {
-                while (true)
-                {
-                    try
-                    {
-                        AnalisadorLexico.Analisar();
-                    }
-                    catch (AnalisadorFimArquivoException)
-                    {
-                        return "";
-                    }
-                }
-            }
-            */
-            if (LineManager.Instance.ReadLine())
-            {
-                /*try
-                {
-                    this.ProgArduino();
-                }
-                catch (AnalisadorFimArquivoException exc)
-                {
-                    return exc.Message;
-                }*/
                 this.ProgArduino();
             }
 
@@ -45,13 +21,6 @@ namespace LinguagensFormais
         private void ProgArduino()
         {
             this.ListaComandosX();
-        }
-
-        private void ListaProg()
-        {
-            this.ListaComandos();
-
-            this.ListaProg();
         }
 
         private void ListaComandosX()
