@@ -74,14 +74,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Arquivos\como_usar.txt" />
+    <Content Include="Arquivos\como_usar.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Arquivos\entrada.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Arquivos\saida_lex.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Material\gramatica.txt" />
+    <Content Include="Material\gramatica.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
