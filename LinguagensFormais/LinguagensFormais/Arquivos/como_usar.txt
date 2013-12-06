@@ -11,3 +11,12 @@
 		c.1) Um erro acontecer, a saída (erro) será dada em uma janela do prompt.
 		c.2) Se sucesso o prompt avisará o término do procedimento e os
 			tokens serão escritos em Arquivos/saida_lex.txt
+
+4) O que não foi antendido:
+	- Declaração de variável com atribuição, exemplo: int x = 8;
+	- Itens fora do escopo: cadeia de caracteres, vetores e etc...;
+	- if, while, do-while, for, switch-case e funções sem as chaves, exemplo: while(1) x = 5 + 1;
+	- Atribuição com operador, exemplo: x += 5;
+	- switch-case com o default em um lugar que não seja por último;
+	- Troca de sinal de uma expressão, exemplo: x = 1 + 3 + (-3);
+	- Negação sem parenteses, exemplo: x = a || !b;
