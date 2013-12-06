@@ -12,7 +12,7 @@ namespace LinguagensFormais
             int x, k, y;
             for(x = 0, k = 7, y = x * 8; x < 10 && k >8; x++){}
 
-            bool debug = true;
+            bool debug = false;
 
             Console.WriteLine("Iniciado processo...");
 
@@ -50,7 +50,7 @@ namespace LinguagensFormais
                 Console.WriteLine("------------");
                 Console.WriteLine();
             }
-           /* catch (Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine();
                 Console.WriteLine("---MEMORIA---");
@@ -59,7 +59,7 @@ namespace LinguagensFormais
                 Console.WriteLine();
                 Console.WriteLine("-------------");
                 Console.WriteLine();
-            }*/
+            }
 
             Console.WriteLine("Processo concluído, precione uma tecla...");
             Console.ReadKey();
