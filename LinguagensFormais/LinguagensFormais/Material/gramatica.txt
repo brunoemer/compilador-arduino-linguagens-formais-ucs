@@ -127,8 +127,5 @@ SwitchDefault ->
 
 
 Fazer se der tempo:
--Declaracao de variavel com atribuicao
 -i++ para o for
 -switch case sem chaves
--declaracao de variavel no for
--+1 sem espaco

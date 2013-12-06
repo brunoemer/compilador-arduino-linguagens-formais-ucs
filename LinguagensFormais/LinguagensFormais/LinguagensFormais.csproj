@@ -59,12 +59,8 @@
     <Compile Include="AnalisadorException.cs" />
     <Compile Include="AnalisadorFimArquivoException.cs" />
     <Compile Include="AnalisadorLexico.cs" />
-    <Compile Include="AnalisadorSintaticoAntigo.cs" />
     <Compile Include="Arquivo.cs" />
     <Compile Include="AnalisadorSintatico.cs" />
-    <Compile Include="AnalisadorLexicoAntigo.cs" />
-    <Compile Include="LexMapAntigo.cs" />
-    <Compile Include="IndentationManager.cs" />
     <Compile Include="LexMap.cs" />
     <Compile Include="LineManager.cs" />
     <Compile Include="Program.cs" />
@@ -79,20 +75,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Arquivos\entrada_hades.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Arquivos\entrada.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Arquivos\entrada_parte1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Arquivos\saida_lex.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Material\gramatica.txt" />
-    <Content Include="Material\gramatica_antiga.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
