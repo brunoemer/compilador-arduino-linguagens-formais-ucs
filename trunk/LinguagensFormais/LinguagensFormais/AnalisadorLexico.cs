@@ -64,6 +64,7 @@ namespace LinguagensFormais
             TokenManager.Instance.TokenCode = 0;
 
             bool endofline = false;
+            bool parsing_a_float = false;
             char c = '\0';
 
             //Busco próximo caracter (mesmo que tenha que pular linhas)
@@ -159,15 +160,17 @@ namespace LinguagensFormais
                     }
                     else if(c.Equals('.') && endofline == false)
                     {
-                        estado = LexMap.Consts["CONSTFLOATNUMPONTO"];
+                        estado = LexMap.Consts["CONSTFLOATPONTO"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else if (c.Equals('e') && endofline == false)
                     {
                         estado = LexMap.Consts["CONSTFLOATNUME"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else
                     {
@@ -181,10 +184,12 @@ namespace LinguagensFormais
                     {
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else
                     {
                         TokenManager.Instance.TokenCode = LexMap.Consts["CONSTFLOAT"];
+                        parsing_a_float = true;
                         return true;
                     }
                 }
@@ -195,10 +200,12 @@ namespace LinguagensFormais
                         estado = LexMap.Consts["CONSTFLOATPONTONUM"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else
                     {
                         TokenManager.Instance.TokenCode = LexMap.Consts["PONTO"];
+                        parsing_a_float = true;
                         return true;
                     }
                 }
@@ -208,16 +215,19 @@ namespace LinguagensFormais
                     {
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else if (c.Equals('e') && endofline == false)
                     {
                         estado = LexMap.Consts["CONSTFLOATNUME"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else
                     {
                         TokenManager.Instance.TokenCode = LexMap.Consts["CONSTFLOAT"];
+                        parsing_a_float = true;
                         return true;
                     }
                 }
@@ -228,6 +238,7 @@ namespace LinguagensFormais
                         estado = LexMap.Consts["CONSTFLOAT"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else if ((c.Equals('+') || c.Equals('-')) && endofline == false)
                     {
@@ -244,16 +255,19 @@ namespace LinguagensFormais
                         estado = LexMap.Consts["CONSTFLOAT"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else if (c.Equals('e') && endofline == false)
                     {
                         estado = LexMap.Consts["CONSTFLOATE"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else
                     {
                         TokenManager.Instance.TokenCode = LexMap.Consts["CONSTFLOAT"];
+                        parsing_a_float = true;
                         return true;
                     }
                 }
@@ -264,6 +278,7 @@ namespace LinguagensFormais
                         estado = LexMap.Consts["CONSTFLOAT"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     // se nao terminar em numero? erro?
                 }
@@ -349,7 +364,7 @@ namespace LinguagensFormais
                 }
                 else if (estado == LexMap.Consts["MAIS"])
                 {
-                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    if (LexMap.Numeros.Contains(c) && endofline == false && parsing_a_float == true)
                     {
                         estado = LexMap.Consts["CONSTINTEIRO"];
                         TokenManager.Instance.TokenSymbol += c;
@@ -369,7 +384,7 @@ namespace LinguagensFormais
                 }
                 else if (estado == LexMap.Consts["MENOS"])
                 {
-                    if (LexMap.Numeros.Contains(c) && endofline == false)
+                    if (LexMap.Numeros.Contains(c) && endofline == false && parsing_a_float == true)
                     {
                         estado = LexMap.Consts["CONSTINTEIRO"];
                         TokenManager.Instance.TokenSymbol += c;
@@ -380,6 +395,7 @@ namespace LinguagensFormais
                         estado = LexMap.Consts["CONSTFLOATPONTO"];
                         TokenManager.Instance.TokenSymbol += c;
                         LineManager.Instance.PosCurrentCaracter++;
+                        parsing_a_float = true;
                     }
                     else
                     {
