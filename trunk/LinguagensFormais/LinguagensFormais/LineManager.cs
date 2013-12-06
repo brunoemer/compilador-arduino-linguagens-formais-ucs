@@ -44,7 +44,7 @@ namespace LinguagensFormais
 
             try
             {
-                this.LineContent = this.Lines[this.LineIndex].ToLower();
+                this.LineContent = this.Lines[this.LineIndex].ToLower().Trim();
                 this.LineIndex++;
 
                 return true;
