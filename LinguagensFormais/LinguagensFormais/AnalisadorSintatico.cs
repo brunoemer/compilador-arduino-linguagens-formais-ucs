@@ -44,19 +44,17 @@ namespace LinguagensFormais
 
         private void ProgArduino()
         {
-            this.ListaComandos();
+            this.ListaComandosX();
         }
 
         private void ListaProg()
         {
-            //this.DeclaraFuncao();
-
             this.ListaComandos();
 
             this.ListaProg();
         }
 
-        private void ListaComandos()
+        private void ListaComandosX()
         {
             bool recur_flag = false;
 
@@ -70,8 +68,93 @@ namespace LinguagensFormais
                 TokenManager.Instance.TokenCode == LexMap.Consts["VOID"])
             {
                 LineManager.Instance.ResetToLastPos();
-                //this.DeclaraVar();
                 this.Declaracao();
+                recur_flag = true;
+            }
+            else
+
+                //if
+                if (TokenManager.Instance.TokenCode == LexMap.Consts["IF"])
+                {
+                    this.If();
+                    recur_flag = true;
+                }
+                else
+
+                    //while
+                    if (TokenManager.Instance.TokenCode == LexMap.Consts["WHILE"])
+                    {
+                        this.While();
+                        recur_flag = true;
+                    }
+                    else
+
+                        //do while
+                        if (TokenManager.Instance.TokenCode == LexMap.Consts["DO"])
+                        {
+                            this.DoWhile();
+                            recur_flag = true;
+                        }
+                        else
+
+                            //for
+                            if (TokenManager.Instance.TokenCode == LexMap.Consts["FOR"])
+                            {
+                                this.For();
+                                recur_flag = true;
+                            }
+                            else
+
+                                //switch
+                                if (TokenManager.Instance.TokenCode == LexMap.Consts["SWITCH"])
+                                {
+                                    this.Switch();
+                                    recur_flag = true;
+                                }
+                                else
+
+                                    if (TokenManager.Instance.TokenCode == LexMap.Consts["ID"])
+                                    {
+                                        //atribuição
+                                        this.Atribuicao();
+                                        recur_flag = true;
+
+                                        //funcao
+                                        if (TokenManager.Instance.TokenCode == LexMap.Consts["ABREPAR"] || TokenManager.Instance.TokenCode == LexMap.Consts["PONTO"])
+                                        {
+                                            //LineManager.Instance.ResetToLastPos(); // nao retrocede por causa da Atribuicao
+                                            this.Funcao();
+                                            AnalisadorLexico.Analisar();
+                                        }
+
+                                        if (TokenManager.Instance.TokenCode != LexMap.Consts["PONTOVIRGULA"])
+                                        {
+                                            throw new AnalisadorException("O Token ; era esperado");
+                                        }
+                                    }
+
+            //recursão
+            if (recur_flag == true)
+            {
+                this.ListaComandosX();
+            }
+        }
+
+
+        private void ListaComandos()
+        {
+            bool recur_flag = false;
+
+            AnalisadorLexico.Analisar();
+
+            //declaração variaveis
+            if (TokenManager.Instance.TokenCode == LexMap.Consts["INTEIRO"] ||
+                TokenManager.Instance.TokenCode == LexMap.Consts["FLOAT"] ||
+                TokenManager.Instance.TokenCode == LexMap.Consts["BYTE"] ||
+                TokenManager.Instance.TokenCode == LexMap.Consts["LONG"])
+            {
+                LineManager.Instance.ResetToLastPos();
+                this.DeclaraVar();
                 recur_flag = true;
             } else
             
