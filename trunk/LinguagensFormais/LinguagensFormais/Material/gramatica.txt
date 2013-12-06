@@ -2,27 +2,48 @@
 	ListaProg
 
 ListaProg ->
-	ListaComandos |
-	DeclaraFuncao |
-	ListaProg
-
-ListaComandos ->
+	ListaComandosX
+	
+ListaComandosX ->
 	Declaracao |
-	Atribuicao |
 	If |
-	For |
 	While |
 	DoWhile |
+	For |
+	Switch |
+	Atribuicao |
+	Funcao |
+	ListaComandosX
+
+ListaComandos ->
+	DeclaraVar |
+	If |
+	While |
+	DoWhile |
+	For |
+	Switch |
+	Atribuicao |
 	Funcao |
 	ListaComandos
 
-Declaracao -> TipoVar id DecB | void id ( DecC
-DecB -> ; | , id ListaVar | ( DecC
-DecC -> (ListaDecParm) { ListaComandos Retorno }
-Retorno -> return Exp ; | {}
+Declaracao -> 
+	TipoVar id DecB | 
+	void id ( DecC
+DecB -> 
+	; | 
+	, id ListaVar | 
+	( DecC
+DecC -> 
+	(ListaDecParm) { ListaComandos Retorno }
+Retorno -> 
+	return Exp ; | {}
 
-ListaDecParm -> TipoVar id ListaDecParmB | {}
-ListaDecParmB -> , TipoVar id ListaDecParmB | {}
+ListaDecParm -> 
+	TipoVar id ListaDecParmB | 
+	{}
+ListaDecParmB -> 
+	, TipoVar id ListaDecParmB | 
+	{}
 
 ListaVar -> 
 	, id ListaVar |
@@ -124,8 +145,3 @@ CaseEnd ->
 SwitchDefault ->
 	default: { ListaComandos CaseEnd |
 	{}
-
-
-Fazer se der tempo:
--i++ para o for
--switch case sem chaves
