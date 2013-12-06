@@ -75,6 +75,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Arquivos\como_usar.txt" />
     <Content Include="Arquivos\entrada.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

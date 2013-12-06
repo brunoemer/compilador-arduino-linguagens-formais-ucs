@@ -1,0 +1,13 @@
+1) A pasta Material contém o autômato criado no JFLAP.
+
+2) A pasta "Arquivos" contém 2 arquivos:
+	a) entrada.txt é onde a entrada do código para análise.
+	b) O saida_lex.txt é a listagem dos tokens reconhecidos.
+	
+3) Como usar:
+	a) Digitar código fonte em: Arquivos/entrada.txt.
+	b) Executar o programa LinguagensFormais contido na raiz.
+	c) Se:
+		c.1) Um erro acontecer, a saída (erro) será dada em uma janela do prompt.
+		c.2) Se sucesso o prompt avisará o término do procedimento e os
+			tokens serão escritos em Arquivos/saida_lex.txt
